@@ -2,7 +2,6 @@ const email_val=(myemail,err)=>{
     const email=document.getElementById(myemail).value
     var validEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if(email.trim() != ''){
-        
         if(!email.match(validEmail)){
             document.getElementById(err).style.visibility='unset'
             document.getElementById(myemail).style.border='2px solid #6e2424'
@@ -55,6 +54,3 @@ const msg_val=(err,msg)=>{
             document.getElementById(msg).dataset.err='pass'
     }
 }
-
-
-    

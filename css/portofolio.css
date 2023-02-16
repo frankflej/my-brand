@@ -728,6 +728,9 @@ tr:nth-child(even){
         border-radius: 50%; 
         
     }
+    .blog_details{
+        display: block;
+    }
     .h_login_img img{
         width: 90px;
         height: 90px;
@@ -762,7 +765,7 @@ tr:nth-child(even){
         display: block;
     }
     .blog_news{
-        padding:10px 10px 10px 0;
+        padding:10px 10px 10px 15px;
     }
     .read_more,.like_section{
         padding-top: 5px;

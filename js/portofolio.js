@@ -1,26 +1,48 @@
-document.getElementById('mylogin').addEventListener('click',function(e){
-    e.preventDefault()
+document.getElementById('mysubmit').addEventListener('click',function(e){
+    e.preventDefault();
     
-    const myemail=document.getElementById('login_email').value
-    const mypassword=document.getElementById('mypassword').value
-    const pss_err=document.getElementById('p_error')
-    const em_err=document.getElementById('em_error')
+    const myemail=document.getElementById('client_email').value
+    const myname=document.getElementById('client_name').value
+    const mymsg=document.getElementById('client_msg').value
+    const em_err=document.getElementById('email_error')
+    const msg_err=document.getElementById('msg_error')
+    const name_error=document.getElementById('name_error')
     
-    if(myemail.trim()=="" || mypassword.trim()==""){
+    if(myemail.trim()=="" || myname.trim()=="" || mymsg.trim()==""){
+        if(myname.trim()==""){
+            name_error.style.visibility='unset';
+            return
+        }
         if(myemail.trim()==""){
             em_err.style.visibility='unset';
             return
         }
-        if(mypassword.trim()==""){
-            pss_err.style.visibility='unset';
+        
+        if(mymsg.trim()==""){
+            msg_error.style.visibility='unset';
             return
         }
     }else{
-        myemail.value="";
-        mypassword.value="";
-        location.href="dashboard.html"
+        document.getElementById('client_email').value="";
+        document.getElementById('client_name').value="";
+        document.getElementById('client_msg').value="";
     }
 })
+setInterval(function(){
+    const email=document.getElementById('client_email').dataset.err;
+    const name=document.getElementById('client_name').dataset.err;
+    const msg=document.getElementById('client_msg').dataset.err;
+    
+    if(email=='pass' && name=='pass' && msg=='pass'){
+        document.getElementById('mysubmit').style.color='white'
+        document.getElementById('mysubmit').style.backgroundColor='#fa4b63'
+        
+    }
+    else{
+        document.getElementById('mysubmit').style.color='rgba(255, 255, 255, 0.321)'
+        document.getElementById('mysubmit').style.backgroundColor='#fa4b622e'
+    }
+},500)
 window.addEventListener("scroll",function(){
     const myheight=this.scrollY
     const mywidth=screen.availWidth
@@ -89,16 +111,3 @@ window.addEventListener("scroll",function(){
     }
     mynav_bar()
 })
-setInterval(function(){
-    const email=document.getElementById('login_email').dataset.err;
-    const password=document.getElementById('mypassword').dataset.err;
-    
-    if(email=='pass'  && password=='pass'){
-        document.getElementById('mylogin').style.color='white'
-        document.getElementById('mylogin').style.backgroundColor='#fa4b63'
-    }
-    else{
-        document.getElementById('mylogin').style.color='rgba(255, 255, 255, 0.321)'
-        document.getElementById('mylogin').style.backgroundColor='#fa4b622e'
-    }
-},500)

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/portofolio.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="wrapper">
+      <div class="dash_wrapper">
+           <div class="dashboard_spacing" id="dashboard_spacing" onclick="hide('dashboard_spacing')">
+            <div class="dash_fixed">
+                <div class="dash_title myfont_family">
+                    <div class=" pl_10"><p>DASHBOARD</p></div>
+                </div>
+                <div>
+                    <div class="dash_nav pt_20">
+                        <ul>
+                            <li class="dash_sec" onclick="dash()" id="mypost">Post</li>
+                            <li class="dash_sec" onclick="dash()" id="myquery">Query</li>
+                            <li class="dash_sec" onclick="dash()" id="mynew">Add new post</li>
+                            <a href="portofolio.html"><li>Log out</li></a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dash_content ">
+                <!--______________________ ALL Post _______________________-->
+               <div class="all_dashboard_post" id="all_dashboard_post">
+                <div class="all_post pb_20 ">
+                    <div class="post_heading pt_10 myflex_between">
+                      <div class="post_right">
+                         <div>
+                          <p><b>Post</b></p>
+                         </div>
+                      </div>
+                      
+                     </div>
+                 </div>
+                 <div class="all_blogs">
+                  <div class="blog_details_dash blog_details">
+                      <div class="blog_img">
+                          <img src="images/advertising-1.jpg" alt="">
+                      </div>
+  
+                      <div class="blog_news">
+                          <div class="sub_title">
+                              <p>Explicablo Illo</p>
+                          </div>
+                          <div>
+                              <p>
+                                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                  Explicabo ad ullam nesciunt repudiandae corporis?
+                                  Nobis quas corporis deleniti animi quasi. Adipisci neque ea
+                                  doloremque modi distinctio doloribus eos libero ut  animi quasi. Adipisci neque ea
+                                  doloremque modi distinctio doloribus eos libero ut?
+                              </p>
+                          </div>
+                          <div class="like_section myflex pt_20">
+  
+                              <div>
+                                  <p>By: Admin</p>
+                              </div>
+  
+                              <div class="myflex mylikes">
+                                  
+                                 <div class="like_btn_section myflex">
+                                      <div class="red_heart ">
+                                      <img src="images/liked.png" alt="">
+                                      </div>
+                                      <div class="white_heart">
+                                      <img src="images/unliked.png" alt="">
+                                      </div>
+                                 </div>
+                                 <div>
+                                  <p>10</p>
+                              </div>
+                              </div>
+  
+                              <div class="cmnt_btn myflex">
+                                  <div class="cmnt_img">
+                                      <img src="images/cmnt.png" alt="">
+                                  </div>
+                                  <div>
+                                      <p>233</p>
+                                  </div>
+                              </div>
+  
+                          </div>
+                          <div class="read_more myorange pt_20">
+                              <p>Read more . . .</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="blog_details_dash blog_details">
+                      <div class="blog_img">
+                          <img src="images/advertising-1.jpg" alt="">
+                      </div>
+  
+                      <div class="blog_news">
+                          <div class="sub_title">
+                              <p>Explicablo Illo</p>
+                          </div>
+                          <div>
+                              <p>
+                                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                  Explicabo ad ullam nesciunt repudiandae corporis?
+                                  Nobis quas corporis deleniti animi quasi. Adipisci neque ea
+                                  doloremque modi distinctio doloribus eos libero ut  animi quasi. Adipisci neque ea
+                                  doloremque modi distinctio doloribus eos libero ut?
+                              </p>
+                          </div>
+                          <div class="like_section myflex pt_20">
+  
+                              <div>
+                                  <p>By: Admin</p>
+                              </div>
+  
+                              <div class="myflex mylikes">
+                                  
+                                 <div class="like_btn_section myflex">
+                                      <div class="red_heart ">
+                                      <img src="images/liked.png" alt="">
+                                      </div>
+                                      <div class="white_heart">
+                                      <img src="images/unliked.png" alt="">
+                                      </div>
+                                 </div>
+                                 <div>
+                                  <p>10</p>
+                              </div>
+                              </div>
+  
+                              <div class="cmnt_btn myflex">
+                                  <div class="cmnt_img">
+                                      <img src="images/cmnt.png" alt="">
+                                  </div>
+                                  <div>
+                                      <p>233</p>
+                                  </div>
+                              </div>
+  
+                          </div>
+                          <div class="read_more myorange pt_20">
+                              <p>Read more . . .</p>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="blog_details_dash blog_details">
+                      <div class="blog_img">
+                          <img src="images/advertising-1.jpg" alt="">
+                      </div>
+  
+                      <div class="blog_news">
+                          <div class="sub_title">
+                              <p>Explicablo Illo</p>
+                          </div>
+                          <div>
+                              <p>
+                                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                  Explicabo ad ullam nesciunt repudiandae corporis?
+                                  Nobis quas corporis deleniti animi quasi. Adipisci neque ea
+                                  doloremque modi distinctio doloribus eos libero ut  animi quasi. Adipisci neque ea
+                                  doloremque modi distinctio doloribus eos libero ut?
+                              </p>
+                          </div>
+                          <div class="like_section myflex pt_20">
+  
+                              <div>
+                                  <p>By: Admin</p>
+                              </div>
+  
+                              <div class="myflex mylikes">
+                                  
+                                 <div class="like_btn_section myflex">
+                                      <div class="red_heart ">
+                                      <img src="images/liked.png" alt="">
+                                      </div>
+                                      <div class="white_heart">
+                                      <img src="images/unliked.png" alt="">
+                                      </div>
+                                 </div>
+                                 <div>
+                                  <p>10</p>
+                              </div>
+                              </div>
+  
+                              <div class="cmnt_btn myflex">
+                                  <div class="cmnt_img">
+                                      <img src="images/cmnt.png" alt="">
+                                  </div>
+                                  <div>
+                                      <p>233</p>
+                                  </div>
+                              </div>
+  
+                          </div>
+                          <div class="read_more myorange pt_20">
+                              <p>Read more . . .</p>
+                          </div>
+                      </div>
+                  </div>
+                  
+                 </div>
+               </div> 
+               <!-- ______________________All queries__________________________________ -->
+               <div class="all_dashboard_query" id="all_dashboard_query">
+                <div class="all_query pb_20 ">
+                    <div class="query_heading pt_10">
+                      <div class="query_right">
+                         <div>
+                          <p><b>Query</b></p>
+                         </div>
+                      </div>
+                    </div>
+
+                    <div class="all_queries pt_50">
+                        <div>
+                            <table>
+                                <thead>
+                                    <tr class="myorange">
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Emery Frank</td>
+                                        <td>frankflej@gmail.com</td>
+                                        <td>Hello your website was cool i really liked it. How much can you cost me for one personal portofolio too?</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Emery Frank</td>
+                                        <td>frankflej@gmail.com</td>
+                                        <td>Hello your website was cool i really liked it. How much can you cost me for one personal portofolio too?</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Emery Frank</td>
+                                        <td>frankflej@gmail.com</td>
+                                        <td>Hello your website was cool i really liked it. How much can you cost me for one personal portofolio too?</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Emery Frank</td>
+                                        <td>frankflej@gmail.com</td>
+                                        <td>Hello your website was cool i really liked it. How much can you cost me for one personal portofolio too?</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Emery Frank</td>
+                                        <td>frankflej@gmail.com</td>
+                                        <td>Hello your website was cool i really liked it. How much can you cost me for one personal portofolio too?</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                 </div>
+               </div>
+
+                <!-- ______________________New post__________________________________ -->
+               <div  class="dashboard_new_post" id="dashboard_new_post">
+                   <div>
+                    <div class="query_heading pt_10">
+                        <div class="query_right">
+                           <div>
+                            <p><b>New post</b></p>
+                           </div>
+                        </div>
+                    </div>
+
+                    <div class="new_post_section myflex_center">
+                        <div class="real_post_section">
+                            <form action="">
+                                <div class="new_post_input">
+                                    <input type="text" placeholder="Post title">
+                                </div>
+                                <div class="new_post_input">
+                                    <textarea name="" id="" cols="30" rows="10" placeholder="Post details"></textarea>
+                                </div>
+                                <div class="new_post_input">
+                                    <input type="file" name="" id="">
+                                </div>
+                                <div class="new_post_btn">
+                                    <button class="mywhite">Save Post</button>
+                                </div>
+
+                            </form>
+                        </div>
+                    </div>
+                   </div>
+                </div>
+            </div>
+           </div>
+        
+           <div class="mymenu_bar" id="mymenu_bar">
+              
+            <div class="sub_menu myflex pt_10 pb_10">
+                <div class="menu" onclick="unhide('dashboard_spacing')">
+                    <div class="menu_line" id="line_1"></div>
+                    <div class="menu_line" id="line_2"></div>
+                    <div class="menu_line" id="line_3"></div>
+                </div>
+            </div>
+             
+           </div>   
+    
+           <div class="mobile_nav" id="mobile_nav">
+        <div>
+            <div class="myflex_end">
+                <div class="mobile_close_btn" onclick="hide('dashboard_spacing')">
+                    <img src="images/cross.png" alt="">
+                </div>
+            </div>
+
+            <div class="">
+                <div class="nav_mobile_list " onclick="hide('dashboard_spacing')">
+                    <ul class="myfont_family" >
+                        <li class="dash_sec" id='mobile_post'onclick="dash()">Post</li>
+                        <li class="dash_sec" id='mobile_query'onclick="dash()">Query</li>
+                        <li class="dash_sec" id="mobile_new_post" onclick="dash()">Add new post</li>
+                        <a href="portofolio.html"><li>Log out</li></a>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+           </div>
+      </div>
+    </div>
+</body>
+<script src="./js/index.js"></script>
+</html>

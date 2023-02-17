@@ -112,7 +112,7 @@ img.h_logo{
     color:#fa4b63 ;
 }
 .mywhite{
-    color: rgba(255, 255, 255, 0.857);
+    color: rgb(255, 255, 255);
 }
 .mytitle{
     font-size: 35px;
@@ -343,8 +343,8 @@ img.h_logo{
 
 .project_style{
     display:grid;
-    grid-template-columns: 31% 31% 31%;
-    gap: 30px;
+    grid-template-columns: 32% 32% 32%;
+    gap: 23px;
 }
 .work_side_one,.work_side_two,.work_side_three{
     display: grid;
@@ -384,6 +384,7 @@ img.h_logo{
 .blog_img img{
     width: 100%;
     height: 100%;
+    /* object-fit: cover; */
 }
 .mylikes,.cmnt_btn{
     margin-left: 40px;
@@ -515,6 +516,7 @@ img.h_logo{
     font-weight: 500;
     transition: all .4s;
 }
+
 .nav_mobile_list li:hover,.dash_nav li:hover{
     background-color: #fa4b63;
     color: white;
@@ -592,8 +594,9 @@ img.h_logo{
 }
 /* ___________________________________Dashboard page_________________________________________ */
 .dashboard_spacing{
-    display: flex;
     position: relative;
+    width: 100%;
+    height: 100vh;
 }
 .dash_wrapper{
     position: relative;
@@ -610,10 +613,10 @@ img.h_logo{
 }
 .dash_content{
     margin-left: 20%;
-    width: 100%;
     /* padding: 7px 20px; */
     position: relative;
 }
+
 .all_post,.all_query{
     position: relative;
     width: 100%;
@@ -631,6 +634,9 @@ img.h_logo{
     padding-left:15px;
     padding-right: 15px;
 }
+.all_blogs{
+    margin: 0 60px;
+}
 .post_right,.query_right {
     font-size: 25px;
 }
@@ -641,9 +647,15 @@ img.h_logo{
     border-radius: 20px;
     font-size: 18px;
 }
+.new_img img{
+    width: 250px;
+    height: 150px;
+    object-fit: cover;
+}
 .blog_details_dash{
     gap: 0px;
 }
+
 .blog_news{
     padding: 7px 10px;
 }
@@ -668,7 +680,7 @@ tr:nth-child(even){
 }
 /* ______________________________New Post page____________________________ */
 .new_post_section{
-    padding-top: 120px;
+    padding-top: 90px;
 }
 .real_post_section{
     width: 50%;
@@ -676,6 +688,21 @@ tr:nth-child(even){
 }
 .new_post_input{
     margin-bottom: 20px;
+}
+.read_more_dash>div {
+margin-left: 40px;
+}
+.myupdate p,.mydelete p{
+    padding: 3px 30px;
+    font-size: 16px;
+    border-radius: 10px;
+}
+.myupdate p{
+    background-color: #fa4b63;
+    color: white;
+}
+.mydelete p{
+    background-color: #f85c713b;
 }
 .new_post_input input,.new_post_input textarea{
     width: 100%;
@@ -707,7 +734,12 @@ tr:nth-child(even){
 .all_dashboard_query,.dashboard_new_post{
     display: none;
 }
-
+.all_blogs_dash{
+    margin: 0 20px;
+}
+#myimg_post{
+    display: none;
+}
 @media (max-width:912px){
     .home_page{
         grid-template-rows: 5% 90% 5%;  
@@ -772,6 +804,9 @@ tr:nth-child(even){
     }
     .sub_title{
         font-size: 25px;
+    }
+    .all_blogs{
+        margin: 0 30px;
     }
     .blog_details{
         grid-template-columns: 30% 1fr;
@@ -878,6 +913,9 @@ tr:nth-child(even){
   .work_hide,.blog_details{
     display: block;
   }
+  .all_blogs{
+    margin: 0 20px;
+}
   .blog_details{
     padding: 20px;
   }

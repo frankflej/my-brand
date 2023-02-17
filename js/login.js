@@ -1,6 +1,9 @@
+const email_name="frankflej@gmail.com";
+const password_pass='frankfrank';
+localStorage.setItem('email_name',email_name);
+localStorage.setItem('password_pass',password_pass);
 document.getElementById('mylogin').addEventListener('click',function(e){
     e.preventDefault()
-    
     const myemail=document.getElementById('login_email').value
     const mypassword=document.getElementById('mypassword').value
     const pss_err=document.getElementById('p_error')
@@ -16,9 +19,14 @@ document.getElementById('mylogin').addEventListener('click',function(e){
             return
         }
     }else{
-        myemail.value="";
-        mypassword.value="";
-        location.href="dashboard.html"
+        if(myemail == localStorage.getItem('email_name') && mypassword == localStorage.getItem('password_pass') ){
+            location.href='dashboard.html'
+            myemail='';
+            mypassword='';
+        }
+        else{
+            alert('Wrong credentials')
+        }
     }
 })
 window.addEventListener("scroll",function(){
@@ -102,3 +110,8 @@ setInterval(function(){
         document.getElementById('mylogin').style.backgroundColor='#fa4b622e'
     }
 },500)
+
+// Login local storage
+
+
+

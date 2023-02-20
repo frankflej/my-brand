@@ -1,3 +1,6 @@
+window.addEventListener('load',function(){
+this.document.getElementById('myload').style.display='none'
+})
 document.getElementById('mysubmit').addEventListener('click',function(e){
     e.preventDefault();
     

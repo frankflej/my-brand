@@ -38,6 +38,7 @@ document.getElementById('save_post').addEventListener('click',function(e){
     document.getElementById('myimg_post').src='';
     document.getElementById('myimg_post').style.display='none'
     display_blogs()
+    location.reload();
 })
 
 const display_blogs=()=>{

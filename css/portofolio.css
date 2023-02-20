@@ -852,6 +852,10 @@ width: 45%;
     .dash_content{
         margin-left: 25%;
     }
+    .confirmation{
+        top: 350px;
+        left:30%
+      }
 }
 /* Tablet targetting */
 @media (max-width:768px){
@@ -1020,5 +1024,9 @@ width: 45%;
   }
   .myform,.real_post_section{
     width:80%;
+  }
+  .confirmation{
+    width: 315px;
+    left:8%
   }
 }

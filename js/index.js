@@ -10,33 +10,6 @@ const hide=(one)=>{
     document.getElementById("mymenu_bar").style.display="block"
     document.getElementById(one).style.filter='blur(0px)'
 }
-const dash=()=>{
-    const mydash_btn=document.getElementsByClassName('dash_sec');
-const dash_all=Array.from(mydash_btn);
-
-dash_all.forEach((n)=>{
-    n.addEventListener("click",function(){
-        if(n.id=="mypost" || n.id=='mobile_post' ){
-            document.getElementById("all_dashboard_post").style.display="block";
-            document.getElementById("all_dashboard_query").style.display="none";
-            document.getElementById("dashboard_new_post").style.display="none";
-            
-        }
-        if(n.id=="myquery" || n.id=='mobile_query'){
-            document.getElementById("all_dashboard_query").style.display="block";
-            document.getElementById("all_dashboard_post").style.display="none";
-            document.getElementById("dashboard_new_post").style.display="none";
-            
-        }
-        if(n.id=="mynew" || n.id=='mobile_new_post'){
-            document.getElementById("dashboard_new_post").style.display="block";
-            document.getElementById("all_dashboard_post").style.display="none";
-            document.getElementById("all_dashboard_query").style.display="none";
-            
-        }
-    })
-})
-}
 
 const email_val=(myemail,err)=>{
     const email=document.getElementById(myemail).value

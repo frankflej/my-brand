@@ -13,28 +13,27 @@
 </head>
 <body>
     <div class="wrapper">
-      <div class="dash_wrapper">
            <div class="dashboard_spacing" id="dashboard_spacing" onclick="hide('dashboard_spacing')">
-            <div class="dash_fixed">
+              <div class="dash_fixed">
                 <div class="dash_title myfont_family">
                     <div class=" pl_10"><p>DASHBOARD</p></div>
                 </div>
                 <div>
                     <div class="dash_nav pt_20">
                         <ul>
-                            <li class="dash_sec" onclick="dash()" id="mypost">Post</li>
-                            <li class="dash_sec" onclick="dash()" id="myquery">Query</li>
-                            <li class="dash_sec" onclick="dash()" id="mynew">Add new post</li>
+                            <li class="dash_sec" onclick="mypages('all_dashboard_post')" id="mypost">Post</li>
+                            <li class="dash_sec" onclick="mypages('all_dashboard_query')" id="myquery">Query</li>
+                            <li class="dash_sec" onclick="mypages('dashboard_new_post')" id="mynew">Add new post</li>
                             <a href="index.html"><li>Log out</li></a>
                         </ul>
                     </div>
                 </div>
-            </div>
+              </div>
 
-            <div class="dash_content ">
+              <div class="dash_content ">
                 <!--______________________ ALL Post _______________________-->
-               <div class="all_dashboard_post" id="all_dashboard_post">
-                <div class="all_post pb_20 ">
+               <div class="all_dashboard_post" id="all_dashboard_post" >
+                 <div class="all_post pb_20 ">
                     <div class="post_heading pt_10 myflex_between">
                       <div class="post_right">
                          <div>
@@ -44,6 +43,7 @@
                       
                      </div>
                  </div>
+
                  <div class="all_blogs all_blogs_dash" id="all_blogs">
                   <!-- <div class="blog_details_dash blog_details">
                       <div class="blog_img">
@@ -106,9 +106,11 @@
                   </div> -->
                   
                  </div>
+
                </div> 
+
                <!-- ______________________All queries__________________________________ -->
-               <div class="all_dashboard_query" id="all_dashboard_query">
+               <div class="all_dashboard_query" id="all_dashboard_query" >
                 <div class="all_query pb_20 ">
                     <div class="query_heading pt_10">
                       <div class="query_right">
@@ -186,7 +188,64 @@
                     </div>
                    </div>
                 </div>
-            </div>
+                 <!-- ______________________Update post__________________________________ -->
+               <div  class="dashboard_update" id="dashboard_update" >
+                <div>
+                 <div class="query_heading pt_10">
+                     <div class="query_right">
+                        <div>
+                         <p><b>Update post</b></p>
+                        </div>
+                     </div>
+                 </div>
+
+                 <div class="new_post_section myflex_center">
+                     <div class="real_post_section">
+                         <form action="">
+                             <div class="new_post_input">
+                                 <input type="text" placeholder="Post title" id="post_title_upd">
+                             </div>
+                             <div class="new_post_input">
+                                 <textarea name="" id="post_details_upd" cols="20" rows="8" placeholder="Post details"></textarea>
+                             </div>
+                             <div class="new_post_input">
+                                 <div>
+                                     <input type="file" name="" id="img_input_upd" onchange="mypic()">
+                                 </div>
+                                 <div class="new_img">
+                                     <img src="" alt="" id="myimg_post_upd">
+                                 </div>
+                             </div>
+
+                             <div class="update_btns myflex_between">
+                                <div id="cancel_upd" class="cancel_upd upd">
+                                    <button class="mywhite" >Cancel</button>
+                                </div>
+                                 <div id="save_upd" class="save_upd upd">
+                                    <button class="mywhite" id="save_post">Update Post</button>
+                                 </div>
+                             </div>
+
+                         </form>
+                     </div>
+                 </div>
+                </div>
+               </div>
+
+               <div class="confirmation" id="confirmation">
+                <div class="del_qst">
+                    <p>Are you sure you want to delete?</p>
+                </div>
+                <div class="del_conf myflex">
+                    <div class="delete_blog deletion" id="delete_blog">
+                        <p>Delete</p>
+                    </div>
+                    <div class="cancel_del deletion" id="cancel_del">
+                        <p>Cancel</p>
+                    </div>
+                </div>
+               </div>
+              </div>
            </div>
         
            <div class="mymenu_bar" id="mymenu_bar">
@@ -212,9 +271,9 @@
             <div class="">
                 <div class="nav_mobile_list " onclick="hide('dashboard_spacing')">
                     <ul class="myfont_family" >
-                        <li class="dash_sec" id='mobile_post'onclick="dash()">Post</li>
-                        <li class="dash_sec" id='mobile_query'onclick="dash()">Query</li>
-                        <li class="dash_sec" id="mobile_new_post" onclick="dash()">Add new post</li>
+                        <li class="dash_sec" id='mobile_post' onclick="mypages('all_dashboard_post')">Post</li>
+                        <li class="dash_sec" id='mobile_query' onclick="mypages('all_dashboard_query')">Query</li>
+                        <li class="dash_sec" id="mobile_new_post" onclick="mypages('dashboard_new_post')">Add new post</li>
                         <a href="index.html"><li>Log out</li></a>
                         
                     </ul>
@@ -222,8 +281,11 @@
             </div>
         </div>
            </div>
+
+           <!-- Deletion msg -->
+         
       </div>
-    </div>
+     
 </body>
 <script src="./js/index.js"></script>
 <script src="./js/dashboard.js"></script>

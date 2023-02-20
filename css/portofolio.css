@@ -10,7 +10,6 @@
     width: 100%;
     position: relative;
     transition: all .4s;
-    
 }
 .myload{
     width: 100%;
@@ -610,14 +609,14 @@ img.h_logo{
     border-radius: 50%;
     background-color: #eee;
 }
-/* ___________________________________Dashboard page_________________________________________ */
+/* ____________________________________new page_________________________________________ */
+.dash_wrapper{
+    position: relative;
+}
 .dashboard_spacing{
     position: relative;
     width: 100%;
-    height: 100vh;
-}
-.dash_wrapper{
-    position: relative;
+    /* height: 100vh; */
 }
 .dash_fixed{
     height: 100vh;
@@ -654,6 +653,7 @@ img.h_logo{
 }
 .all_blogs{
     margin: 0 60px;
+    
 }
 .post_right,.query_right {
     font-size: 25px;
@@ -739,7 +739,23 @@ margin-left: 40px;
     border: none;
     font-size: 18px;
 }
-.all_dashboard_post,.all_dashboard_query,.dashboard_new_post{
+
+.cancel_upd,.save_upd{
+width: 45%;
+}
+.save_upd button{
+    background-color: #fa4b63;
+}
+.cancel_upd button{
+    background-color: #fa4b6256;
+}
+.cancel_upd button,.save_upd button{
+    padding: 5px;
+    border: none;
+    width: 100%;
+    border-radius: 7px;
+}
+.all_dashboard_post,.all_dashboard_query,.dashboard_new_post,.dashboard_update{
     position: absolute;
     top: 0;
     background-color: white;
@@ -749,14 +765,58 @@ margin-left: 40px;
 .all_dashboard_post{
     z-index: 10;
 }
-.all_dashboard_query,.dashboard_new_post{
+.all_dashboard_query,.dashboard_new_post,.dashboard_update{
     display: none;
 }
+.noitem{
+    display: flex;
+    width: inherit;
+    height: inherit;
+    justify-content: center;
+    margin-top: 200px;
+    color: rgba(0, 0, 0, 0.322);
+}
+
 .all_blogs_dash{
     margin: 0 20px;
+    
 }
 #myimg_post{
     display: none;
+}
+/* Delete confirmation */
+.confirmation{
+    position: fixed;
+    top:200px;
+    left: 40%;
+    z-index: 999;
+    background-color: #f6f1f1;
+    padding: 20px ;
+    width: 350px;
+    height: 130px;
+    border-radius: 10px;
+    display: none;
+}
+.del_qst{
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+.del_conf{
+    justify-content: space-evenly;
+}
+.deletion{
+    margin-top: 20px;
+    padding: 5px 30px;
+    border-radius: 10px;
+}
+.delete_blog{
+    background-color: #fa4b6228;
+}
+.cancel_del{
+    background-color: #fa4b63;
+    color: white;
+   
 }
 @media (max-width:912px){
     .home_page{

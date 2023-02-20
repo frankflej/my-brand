@@ -172,11 +172,12 @@ const display_blogs=()=>{
     
                             </div>
                             <div class="read_more myorange pt_20">
-                                <p>Read more >>></p>
+                                <p>Read more...</p>
                             </div>
                         </div>
                     </div>
            `
+           
         });
     }
 }

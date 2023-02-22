@@ -124,7 +124,15 @@ const display_blogs=()=>{
     document.getElementById('home_all_blogs').innerHTML=''
     const blogs=JSON.parse(localStorage.getItem('all_post')) || [];
     if(blogs != ''){
-        blogs.forEach((b) => {
+        blogs.forEach((b,index) => {
+            let myinfo=(b.p_details).split(' ')
+                let info=[]
+                for(let i=0 ;i<=myinfo.length;i++){
+                    if(i<40){
+                        info.push(myinfo[i])
+                    }
+                }
+                info=info.join(' ')
            document.getElementById('home_all_blogs').innerHTML+=`
            <div class="blog_details ">
                         <div class="blog_img">
@@ -137,8 +145,9 @@ const display_blogs=()=>{
                             </div>
                             <div>
                                 <p>
-                                ${b.p_details}
+                                ${info}...<span ><a href="single_blog.html?p_id=${index}" class="myorange"> Read more>></a></span>
                                 </p>
+        
                             </div>
                             <div class="like_section myflex pt_20">
     
@@ -171,9 +180,7 @@ const display_blogs=()=>{
                                 </div>
     
                             </div>
-                            <div class="read_more myorange pt_20">
-                                <p>Read more...</p>
-                            </div>
+                            
                         </div>
                     </div>
            `

@@ -48,8 +48,16 @@ const display_blogs=()=>{
     if(localStorage.getItem('all_post')){
         blogs=JSON.parse(localStorage.getItem('all_post'))
         if(blogs != ''){
-            let c=0;
-            blogs.forEach((b)=>{
+            
+            blogs.forEach((b,index)=>{
+                let myinfo=(b.p_details).split(' ')
+                let info=[]
+                for(let i=0 ;i<=myinfo.length;i++){
+                    if(i<35){
+                        info.push(myinfo[i])
+                    }
+                }
+                info=info.join(' ')
                 document.getElementById('all_blogs').innerHTML+=`<div class="blog_details_dash blog_details">
                 <div class="blog_img">
                     <img src="${b.p_img}" alt="">
@@ -61,24 +69,24 @@ const display_blogs=()=>{
                     </div>
                     <div>
                         <p>
-                        ${b.p_details}
+                        ${info} ...
                         </p>
                     </div>
         
                     <div class="read_more read_more_dash myflex_end myorange pt_20">
                 
-                        <div class="mydelete" data-num=${c} onclick='deleting()'>
+                        <div class="mydelete" data-num=${index} onclick='deleting()'>
                           <p>Delete</p>
                         </div>
                         
     
-                        <div class="myupdate" data-num=${c} onclick='updating()'>
+                        <div class="myupdate" data-num=${index} onclick='updating()'>
                           <p>Update</p>
                         </div>
                     </div>
                 </div>
             </div>`
-            c+=1;
+            
             })
         }
         else{

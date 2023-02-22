@@ -818,6 +818,14 @@ width: 45%;
     color: white;
    
 }
+/* Single blog page view */
+.single_blog{
+    width: 80%;
+}
+.single_blog .blog_img img{
+    width: 400px;
+    height: 400px;
+}
 @media (max-width:912px){
     .home_page{
         grid-template-rows: 5% 90% 5%;  

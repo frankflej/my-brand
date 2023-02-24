@@ -5,7 +5,7 @@ window.addEventListener('load',function(){
     let all_blogs=JSON.parse(localStorage.getItem('all_post'))
     console.log(all_blogs)
     this.document.getElementById('single_blog').innerHTML=`
-            <div class="blog_img myflex_center pt_20 pb_10">
+            <div class="single_img myflex_center pt_20 pb_10">
                         <div class="pt_10">
                             <img src="${all_blogs[myid].p_img}" alt="">
                         </div>

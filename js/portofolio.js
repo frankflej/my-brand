@@ -120,6 +120,7 @@ window.addEventListener("scroll",function(){
     }
     mynav_bar()
 })
+localStorage.removeItem('online')
 const display_blogs=()=>{
     document.getElementById('home_all_blogs').innerHTML=''
     const blogs=JSON.parse(localStorage.getItem('all_post')) || [];

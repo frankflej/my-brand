@@ -1,6 +1,3 @@
-window.addEventListener('load',function(){
-    display_blogs();
-})
 
 const mypic=()=>{
     const myimg_input=document.getElementById('img_input').files[0];
@@ -42,7 +39,6 @@ document.getElementById('save_post').addEventListener('click',function(e){
 })
 
 const display_blogs=()=>{
-    
     document.getElementById('all_blogs').innerHTML=''
     let blogs= [];
     if(localStorage.getItem('all_post')){
@@ -69,7 +65,7 @@ const display_blogs=()=>{
                     </div>
                     <div>
                         <p>
-                        ${info} ...
+                        ${info} ...<span ><a href="single_blog.html?p_id=${index}" class="myorange"> Read more>></a></span>
                         </p>
                     </div>
         
@@ -98,7 +94,7 @@ const display_blogs=()=>{
     }
    
 }
-
+display_blogs()
 const display_queries=()=>{
     document.getElementById('myqueries').innerHTML=''
     let queries= [];
@@ -204,11 +200,13 @@ const deleting=()=>{
     })
 }
 const mypages=(x)=>{
+    
     let clicked=document.getElementById(x)
     const all_pages=['all_dashboard_post','all_dashboard_query','dashboard_new_post','dashboard_update']
     all_pages.forEach((n)=>{
     if(clicked.id == n){
         document.getElementById(`${clicked.id}`).style.display='block'
+        
     }else{
         document.getElementById(`${n}`).style.display='none'
     }

@@ -8,10 +8,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="images/frank.JPG" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <title>Dashboard</title>
 </head>
 <body>
+    <script src="./js/login_check.js"></script>
     <div class="wrapper">
            <div class="dashboard_spacing" id="dashboard_spacing" onclick="hide('dashboard_spacing')">
               <div class="dash_fixed">
@@ -21,10 +23,11 @@
                 <div>
                     <div class="dash_nav pt_20">
                         <ul>
+                            <a href="index.html"><li>Home</li></a>
                             <li class="dash_sec" onclick="mypages('all_dashboard_post')" id="mypost">Post</li>
                             <li class="dash_sec" onclick="mypages('all_dashboard_query')" id="myquery">Query</li>
                             <li class="dash_sec" onclick="mypages('dashboard_new_post')" id="mynew">Add new post</li>
-                            <a href="index.html"><li>Log out</li></a>
+                            <a href="login.html"><li>Log out</li></a>
                         </ul>
                     </div>
                 </div>
@@ -271,10 +274,11 @@
             <div class="">
                 <div class="nav_mobile_list " onclick="hide('dashboard_spacing')">
                     <ul class="myfont_family" >
+                        <a href="index.html"><li>Home</li></a>
                         <li class="dash_sec" id='mobile_post' onclick="mypages('all_dashboard_post')">Post</li>
                         <li class="dash_sec" id='mobile_query' onclick="mypages('all_dashboard_query')">Query</li>
                         <li class="dash_sec" id="mobile_new_post" onclick="mypages('dashboard_new_post')">Add new post</li>
-                        <a href="index.html"><li>Log out</li></a>
+                        <a href="login.html"><li>Log out</li></a>
                         
                     </ul>
                 </div>

@@ -33,6 +33,9 @@ document.getElementById('save_post').addEventListener('click',function(e){
     }).then((data)=>{
         console.log(data)
     })
+    .catch((error)=>{
+        console.log(error)
+    })
     
     // localStorage.setItem('all_post',JSON.stringify(myall_post))
     // document.getElementById('post_title').value='';
@@ -157,6 +160,9 @@ const updating=()=>{
                     localStorage.setItem('id_upd',info._id)
                     return info._id
                 })
+                .catch((error)=>{
+                    console.log(error)
+                })
         })
 })
 }
@@ -165,7 +171,7 @@ const updating=()=>{
 document.getElementById('save_upd').addEventListener('click',function(e){
     e.preventDefault()
     const id=localStorage.getItem('id_upd')
-
+    localStorage.removeItem('id_upd')
     const title=document.getElementById('post_title_upd').value
     const content=document.getElementById('post_details_upd').value
     const image=document.getElementById('myimg_post_upd').src
@@ -182,43 +188,48 @@ document.getElementById('save_upd').addEventListener('click',function(e){
         return response.json()
     }).then((data)=>{
         console.log(data)
+        display_blogs()
     })
-    display_blogs()
+    .catch((error)=>{
+        console.log(error)
+    })
+    
 })
 const deleting=()=>{
     const deletes=document.getElementsByClassName('mydelete');
     const deleteBtn=Array.from(deletes);
+    let token= document.cookie.split('=')[1]
+    
     deleteBtn.forEach((d)=>{
         d.addEventListener('click',function(){
             let myid=d.dataset.num
-            myall_post=JSON.parse(localStorage.getItem('all_post'));
-            document.getElementById('confirmation').style.display='block';
-            for(let i=0;i<=myall_post.length;i++){
-                if(myid==i){
-                       document.getElementById('confirmation').style.display='block';
-                       const deletion=document.getElementsByClassName('deletion');
-                       const del=Array.from(deletion)
-                       del.forEach((n)=>{
-                        n.addEventListener('click',function(){
-                            if(n.id == 'delete_blog'){
-                                myall_post.splice(myid,1)
-                                localStorage.setItem('all_post',JSON.stringify(myall_post))
-                                document.getElementById('confirmation').style.display='none';
-                                display_blogs();
-                                
-                            }
-                            else{
-                                document.getElementById('confirmation').style.display='none';
-                                
-                            }
-                            location.reload();
-                            
-                        })
-
-                       })
-                    }
-                    
-            }
+            fetch(`http://localhost:2100/myapi/blog/${myid}`,{
+                method:'DELETE',
+                headers:{
+                    'Content-Type':'application/json',
+                    "credentials":`${token}`
+                }
+            })
+            .then((response)=>{
+                return response.json()
+            })
+            .then((data)=>{
+                console.log(data)
+                display_blogs()
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+            // if(n.id == 'delete_blog'){
+            //     myall_post.splice(myid,1)
+            //     localStorage.setItem('all_post',JSON.stringify(myall_post))
+            //     document.getElementById('confirmation').style.display='none';
+            //     display_blogs(); 
+            // }
+            // else{
+            //     document.getElementById('confirmation').style.display='none';
+            // }
+            // location.reload();
         })
     })
 }

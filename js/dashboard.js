@@ -11,7 +11,7 @@ const mypic=()=>{
 }
 myall_post=[];
 
-
+// Creating a new post
 document.getElementById('save_post').addEventListener('click',function(e){
 
     e.preventDefault();
@@ -19,25 +19,35 @@ document.getElementById('save_post').addEventListener('click',function(e){
     let p_details=document.getElementById('post_details').value;
     let img_input=document.getElementById('img_input').value;
     let myimg=document.getElementById('myimg_post').src;
-    let myobj={};
-    if(localStorage.getItem('all_post')){
-        myall_post=JSON.parse(localStorage.getItem('all_post'))
-    }
-    myobj.p_title=p_title;
-    myobj.p_details=p_details;
-    myobj.p_file=img_input
-    myobj.p_img=myimg;
-    myall_post.push(myobj);
-    localStorage.setItem('all_post',JSON.stringify(myall_post))
-    document.getElementById('post_title').value='';
-    document.getElementById('post_details').value='';
-    document.getElementById('img_input').value='';
-    document.getElementById('myimg_post').src='';
-    document.getElementById('myimg_post').style.display='none'
-    display_blogs()
-    location.reload();
+    let myobj={title:p_title,content:p_details,image:myimg};
+    const cookie = document.cookie.split('=')[1];
+    fetch('http://localhost:2100/myapi/blog',{
+        method:'POST',
+        headers:{
+            "Content-Type":"application/json",
+            "credentials":`${cookie}`
+        },
+        body:JSON.stringify(myobj)
+    }).then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        console.log(data)
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
+    
+    // localStorage.setItem('all_post',JSON.stringify(myall_post))
+    // document.getElementById('post_title').value='';
+    // document.getElementById('post_details').value='';
+    // document.getElementById('img_input').value='';
+    // document.getElementById('myimg_post').src='';
+    // document.getElementById('myimg_post').style.display='none'
+    // display_blogs()
+    // location.reload();
 })
 
+// Getting all blogs
 const display_blogs=()=>{
     document.getElementById('all_blogs').innerHTML=''
     let blogs= [];
@@ -69,18 +79,18 @@ const display_blogs=()=>{
                             </div>
                             <div>
                                 <p>
-                                ${info} ...<span ><a href="single_blog.html?p_id=${index}" class="myorange"> Read more>></a></span>
+                                ${info} ...<span ><a href="single_blog.html?p_id=${b._id}" class="myorange"> Read more>></a></span>
                                 </p>
                             </div>
                 
                             <div class="read_more read_more_dash myflex_end myorange pt_20">
                         
-                                <div class="mydelete" data-num=${index} onclick='deleting()'>
+                                <div class="mydelete" data-num=${b._id} onclick='deleting()'>
                                   <p>Delete</p>
                                 </div>
                                 
             
-                                <div class="myupdate" data-num=${index} onclick='updating()'>
+                                <div class="myupdate" data-num=${b._id} onclick='updating()'>
                                   <p>Update</p>
                                 </div>
                             </div>
@@ -101,6 +111,7 @@ const display_blogs=()=>{
    
 }
 display_blogs()
+
 const display_queries=()=>{
     document.getElementById('myqueries').innerHTML=''
     let queries= [];
@@ -128,6 +139,7 @@ const display_queries=()=>{
 
 display_queries()
 
+// Getting post to be updated
 const updating=()=>{
     const update=document.getElementsByClassName('myupdate');
     const updateBtn=Array.from(update);
@@ -136,72 +148,88 @@ const updating=()=>{
             
                 mypages('dashboard_update');
                 let myid=u.dataset.num
-                myall_post=JSON.parse(localStorage.getItem('all_post'));
-                for(let i=0;i<=myall_post.length;i++){
-                    if(myid==i){
-                       
-                        document.getElementById('post_title_upd').value=`${myall_post[i].p_title}`
-                        document.getElementById('post_details_upd').value=`${myall_post[i].p_details}`
-                        document.getElementById('myimg_post_upd').src=`${myall_post[i].p_img}`
-                    }
-                }
-                const update_btn=document.getElementsByClassName('upd');
-                const upd_btn=Array.from(update_btn);
-                upd_btn.forEach((n)=>{
-                   n.addEventListener('click',function(){
-                    if(n.id == 'cancel_upd'){
-                        display_blogs();
-                    }
-                    else{
-                        myall_post.splice(myid,1)
-                        let myobj={};
-                        myobj.p_title=document.getElementById('post_title_upd').value;
-                        myobj.p_details=document.getElementById('post_details_upd').value;
-                        myobj.p_file=document.getElementById('img_input_upd').value;
-                        myobj.p_img=document.getElementById('myimg_post_upd').src;
-                        myall_post.push(myobj);
-                        localStorage.setItem('all_post',JSON.stringify(myall_post))
-                        display_blogs();
-                    }
-                   })
+                fetch(`http://localhost:2100/myapi/blog/${myid}`)
+                .then((response)=>{
+                    return response.json()
+                })
+                .then((data)=>{
+                    info=data.data
+                    document.getElementById('post_title_upd').value=info.title;
+                    document.getElementById('post_details_upd').value=info.content;
+                    document.getElementById('myimg_post_upd').src=info.image;
+                    localStorage.setItem('id_upd',info._id)
+                    return info._id
+                })
+                .catch((error)=>{
+                    console.log(error)
                 })
         })
 })
 }
+
+// Saving the updated post
+document.getElementById('save_upd').addEventListener('click',function(e){
+    e.preventDefault()
+    const id=localStorage.getItem('id_upd')
+    localStorage.removeItem('id_upd')
+    const title=document.getElementById('post_title_upd').value
+    const content=document.getElementById('post_details_upd').value
+    const image=document.getElementById('myimg_post_upd').src
+    const data={title,content,image}
+    const cookie=document.cookie.split('=')[1]
+    fetch(`http://localhost:2100/myapi/blog/${id}`,{
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json',
+            'credentials':`${cookie}`
+        },
+        body:JSON.stringify(data)
+    }).then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        console.log(data)
+        display_blogs()
+    })
+    .catch((error)=>{
+        console.log(error)
+    })
+    
+})
 const deleting=()=>{
     const deletes=document.getElementsByClassName('mydelete');
     const deleteBtn=Array.from(deletes);
+    let token= document.cookie.split('=')[1]
+    
     deleteBtn.forEach((d)=>{
         d.addEventListener('click',function(){
             let myid=d.dataset.num
-            myall_post=JSON.parse(localStorage.getItem('all_post'));
-            document.getElementById('confirmation').style.display='block';
-            for(let i=0;i<=myall_post.length;i++){
-                if(myid==i){
-                       document.getElementById('confirmation').style.display='block';
-                       const deletion=document.getElementsByClassName('deletion');
-                       const del=Array.from(deletion)
-                       del.forEach((n)=>{
-                        n.addEventListener('click',function(){
-                            if(n.id == 'delete_blog'){
-                                myall_post.splice(myid,1)
-                                localStorage.setItem('all_post',JSON.stringify(myall_post))
-                                document.getElementById('confirmation').style.display='none';
-                                display_blogs();
-                                
-                            }
-                            else{
-                                document.getElementById('confirmation').style.display='none';
-                                
-                            }
-                            location.reload();
-                            
-                        })
-
-                       })
-                    }
-                    
-            }
+            fetch(`http://localhost:2100/myapi/blog/${myid}`,{
+                method:'DELETE',
+                headers:{
+                    'Content-Type':'application/json',
+                    "credentials":`${token}`
+                }
+            })
+            .then((response)=>{
+                return response.json()
+            })
+            .then((data)=>{
+                console.log(data)
+                display_blogs()
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+            // if(n.id == 'delete_blog'){
+            //     myall_post.splice(myid,1)
+            //     localStorage.setItem('all_post',JSON.stringify(myall_post))
+            //     document.getElementById('confirmation').style.display='none';
+            //     display_blogs(); 
+            // }
+            // else{
+            //     document.getElementById('confirmation').style.display='none';
+            // }
+            // location.reload();
         })
     })
 }
@@ -223,12 +251,3 @@ const mypages=(x)=>{
 
 }
 
-document.getElementById('testing').addEventListener('click',function(){
-    fetch('http://localhost:2100/blog',{
-        method:'DELETE',
-    }).then((response)=>{
-        return response.json()
-    }).then((data)=>{
-        console.log(data)
-    })
-})

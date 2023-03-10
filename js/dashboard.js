@@ -11,7 +11,7 @@ const mypic=()=>{
 }
 myall_post=[];
 
-
+// Creating a new post
 document.getElementById('save_post').addEventListener('click',function(e){
 
     e.preventDefault();
@@ -19,25 +19,32 @@ document.getElementById('save_post').addEventListener('click',function(e){
     let p_details=document.getElementById('post_details').value;
     let img_input=document.getElementById('img_input').value;
     let myimg=document.getElementById('myimg_post').src;
-    let myobj={};
-    if(localStorage.getItem('all_post')){
-        myall_post=JSON.parse(localStorage.getItem('all_post'))
-    }
-    myobj.p_title=p_title;
-    myobj.p_details=p_details;
-    myobj.p_file=img_input
-    myobj.p_img=myimg;
-    myall_post.push(myobj);
-    localStorage.setItem('all_post',JSON.stringify(myall_post))
-    document.getElementById('post_title').value='';
-    document.getElementById('post_details').value='';
-    document.getElementById('img_input').value='';
-    document.getElementById('myimg_post').src='';
-    document.getElementById('myimg_post').style.display='none'
-    display_blogs()
-    location.reload();
+    let myobj={title:p_title,content:p_details,image:myimg};
+    const cookie = document.cookie.split('=')[1];
+    fetch('http://localhost:2100/myapi/blog',{
+        method:'POST',
+        headers:{
+            "Content-Type":"application/json",
+            "credentials":`${cookie}`
+        },
+        body:JSON.stringify(myobj)
+    }).then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        console.log(data)
+    })
+    
+    // localStorage.setItem('all_post',JSON.stringify(myall_post))
+    // document.getElementById('post_title').value='';
+    // document.getElementById('post_details').value='';
+    // document.getElementById('img_input').value='';
+    // document.getElementById('myimg_post').src='';
+    // document.getElementById('myimg_post').style.display='none'
+    // display_blogs()
+    // location.reload();
 })
 
+// Getting all blogs
 const display_blogs=()=>{
     document.getElementById('all_blogs').innerHTML=''
     let blogs= [];
@@ -101,6 +108,7 @@ const display_blogs=()=>{
    
 }
 display_blogs()
+
 const display_queries=()=>{
     document.getElementById('myqueries').innerHTML=''
     let queries= [];
@@ -223,12 +231,3 @@ const mypages=(x)=>{
 
 }
 
-document.getElementById('testing').addEventListener('click',function(){
-    fetch('http://localhost:2100/blog',{
-        method:'DELETE',
-    }).then((response)=>{
-        return response.json()
-    }).then((data)=>{
-        console.log(data)
-    })
-})

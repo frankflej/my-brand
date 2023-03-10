@@ -1,8 +1,6 @@
 const email_name="frankflej@gmail.com";
 const password_pass='frankfrank';
-localStorage.setItem('email_name',email_name);
-localStorage.setItem('password_pass',password_pass);
-localStorage.removeItem('online')
+
 document.getElementById('mylogin').addEventListener('click',function(e){
     e.preventDefault()
     const myemail=document.getElementById('login_email').value
@@ -23,34 +21,44 @@ document.getElementById('mylogin').addEventListener('click',function(e){
             return
         }
     }else{
-        if(myemail == localStorage.getItem('email_name') && mypassword == localStorage.getItem('password_pass') ){
-            localStorage.setItem('online',1)
-            location.href='dashboard.html'
-            myemail='';
-            mypassword='';
-        }
-        else{
-            msg='Email or password incorrect'
-            pss_err.style.visibility='unset';
-            pss_err.innerText=msg;
-            return
-        }
+        const data={email:myemail,password:mypassword}
+        fetch('http://localhost:2100/myapi/login',{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json",
+            },
+            body:JSON.stringify(data)
+        }).then((response)=>{
+            return response.json()
+        }).then((data)=>{
+            const token=data.token
+            if(token){
+                document.cookie=`token=${token}; Path=/;`
+                location.href="./dashboard.html"
+            }
+            else{
+                return console.log("Wrong credentials")
+            }
+        })
     }
 })
 
-setInterval(function(){
+const btn_check=()=>{
     const email=document.getElementById('login_email').dataset.err;
-    const password=document.getElementById('mypassword').dataset.err;
-    
-    if(email=='pass'  && password=='pass'){
-        document.getElementById('mylogin').style.color='white'
-        document.getElementById('mylogin').style.backgroundColor='#fa4b63'
-    }
-    else{
-        document.getElementById('mylogin').style.color='rgba(255, 255, 255, 0.321)'
-        document.getElementById('mylogin').style.backgroundColor='#fa4b622e'
-    }
-},500)
+        const password=document.getElementById('mypassword').dataset.err;
+        
+        if(email=='pass'  && password=='pass'){
+            document.getElementById('mylogin').style.color='white'
+            document.getElementById('mylogin').style.backgroundColor='#fa4b63'
+        }
+        else{
+            document.getElementById('mylogin').style.color='rgba(255, 255, 255, 0.321)'
+            document.getElementById('mylogin').style.backgroundColor='#fa4b622e'
+        }
+}
+setInterval(function(){
+  btn_check()
+},500) 
 
 // Login local storage
 

@@ -19,44 +19,43 @@
         </div>
 
         <div class="home login_page_home myflex_center">
-            <div class="login_form_section myflex_center">
+            <div class="login_form_section signup_form_section myflex_center">
                 <div class="login_start">
-                    <div class="mytitle login_title myfont_family myflex_center pt_20 pb_50">
-                        <p class="mywhite"><span class="myorange myL">L</span>ogin</p>
+                    <div class="mytitle login_title myfont_family myflex_center pt_30 pb_30">
+                        <p class="mywhite">Create<span class="myorange "> Account</span></p>
                     </div>
                     <div>
                         <div class="myflex_center form_section">
                           <div class="myform"> 
-                            <form action="dashboard.html" >
+                            <form action="dashboard.html" id="signUp">
                                 <div class="login_input pb_20">
                                     <div>
-                                        <input type="text" data-err="error" placeholder="Email" id="login_email" onkeydown="email_val('login_email','em_error')" onchange="email_val('login_email','em_error')">
+                                        <input type="text" data-err="error" placeholder="Username" id="signup_name" onkeydown="msg_val('name_error','signup_name')" onchange="msg_val('name_error','signup_name')" autocomplete="on">
                                     </div>
                                     <div>
-                                        <p class="myerror" id="em_error">Invalid Email</p>
+                                        <p class="myerror" id="name_error">Invalid username</p>
+                                    </div>
+                                </div>
+                                <div class="login_input pb_20">
+                                    <div>
+                                        <input type="text" data-err="error" placeholder="Email" id="signup_email" onkeydown="email_val('signup_email','s_em_error')" onchange="email_val('signup_email','s_em_error')" autocomplete="on">
+                                    </div>
+                                    <div>
+                                        <p class="myerror" id="s_em_error">Invalid Email</p>
                                     </div>
                                 </div>
                                 <div class="login_input">
                                     <div>
-                                        <input type="password" data-err="error"placeholder="Password" id="mypassword" onkeydown="msg_val('p_error','mypassword')" onchange="msg_val('p_error','mypassword')">
+                                        <input type="password" data-err="error"placeholder="Password" id="signup_password" onkeydown="msg_val('s_p_error','signup_password')" onchange="msg_val('s_p_error','signup_password')">
                                     </div>
                                     <div>
-                                        <p class="myerror" id="p_error">Password too short !</p>
+                                        <p class="myerror" id="s_p_error">Password too short !</p>
                                     </div>
                                     
                                 </div>
-                                <div class="myflex_between sign_up">
-                                   <a href="sign_up.html">
-                                    <div class="mywhite">
-                                        <p>Create account</p>
-                                    </div>
-                                   </a>
-                                    <div class="mywhite">
-                                        <p>Forgot Password</p>
-                                    </div>
-                                </div>
-                                <div class="login_submit ">
-                                    <button class="mywhite" id="mylogin">Login</button>
+                               
+                                <div class="signup_submit ">
+                                    <button class=" mywhite" type='submit'>Login</button>
                                 </div>
                             </form>
                           </div>
@@ -68,5 +67,6 @@
     </div>
 </body>
 <script src="./js/index.js"></script>
-<script src="./js/login.js">  </script>
+<!-- <script src="./js/login.js">  </script> -->
+<script src="./js/signup.js"></script>
 </html>

@@ -41,57 +41,63 @@ document.getElementById('save_post').addEventListener('click',function(e){
 const display_blogs=()=>{
     document.getElementById('all_blogs').innerHTML=''
     let blogs= [];
-    if(localStorage.getItem('all_post')){
-        blogs=JSON.parse(localStorage.getItem('all_post'))
+
+    fetch('http://localhost:2100/myapi/blog')
+    .then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        blogs=data.data
+        console.log(blogs);
         if(blogs != ''){
+                    blogs.forEach((b,index)=>{
+                        let myinfo=(b.title).split(' ')
+                        let info=[]
+                        for(let i=0 ;i<=myinfo.length;i++){
+                            if(i<35){
+                                info.push(myinfo[i])
+                            }
+                        }
+                        info=info.join(' ')
+                        document.getElementById('all_blogs').innerHTML+=`<div class="blog_details_dash blog_details">
+                        <div class="blog_img">
+                            <img src="${b.image}" alt="">
+                        </div>
             
-            blogs.forEach((b,index)=>{
-                let myinfo=(b.p_details).split(' ')
-                let info=[]
-                for(let i=0 ;i<=myinfo.length;i++){
-                    if(i<35){
-                        info.push(myinfo[i])
-                    }
-                }
-                info=info.join(' ')
-                document.getElementById('all_blogs').innerHTML+=`<div class="blog_details_dash blog_details">
-                <div class="blog_img">
-                    <img src="${b.p_img}" alt="">
-                </div>
-    
-                <div class="blog_news">
-                    <div class="sub_title">
-                        <p>${b.p_title}</p>
-                    </div>
-                    <div>
-                        <p>
-                        ${info} ...<span ><a href="single_blog.html?p_id=${index}" class="myorange"> Read more>></a></span>
-                        </p>
-                    </div>
-        
-                    <div class="read_more read_more_dash myflex_end myorange pt_20">
+                        <div class="blog_news">
+                            <div class="sub_title">
+                                <p>${b.title}</p>
+                            </div>
+                            <div>
+                                <p>
+                                ${info} ...<span ><a href="single_blog.html?p_id=${index}" class="myorange"> Read more>></a></span>
+                                </p>
+                            </div>
                 
-                        <div class="mydelete" data-num=${index} onclick='deleting()'>
-                          <p>Delete</p>
-                        </div>
+                            <div class="read_more read_more_dash myflex_end myorange pt_20">
                         
-    
-                        <div class="myupdate" data-num=${index} onclick='updating()'>
-                          <p>Update</p>
-                        </div>
-                    </div>
-                </div>
-            </div>`
+                                <div class="mydelete" data-num=${index} onclick='deleting()'>
+                                  <p>Delete</p>
+                                </div>
+                                
             
-            })
-        }
-        else{
+                                <div class="myupdate" data-num=${index} onclick='updating()'>
+                                  <p>Update</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`
+                    
+                    })  
+                }
+                else{
+                
+                document.getElementById('all_blogs').innerHTML=`
+                <div class='noitem'><h1>No Blogs</h1></div>
+                `
+                }
         
-        document.getElementById('all_blogs').innerHTML=`
-        <div class='noitem'><h1>No Blogs</h1></div>
-        `
-        }
-    }
+    })
+   
    
 }
 display_blogs()
@@ -216,3 +222,13 @@ const mypages=(x)=>{
 
 
 }
+
+document.getElementById('testing').addEventListener('click',function(){
+    fetch('http://localhost:2100/blog',{
+        method:'DELETE',
+    }).then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        console.log(data)
+    })
+})

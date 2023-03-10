@@ -87,6 +87,7 @@ a{
 }
 .portfolio_home_page{
     background-image:linear-gradient(to bottom,rgba(0, 0, 0, 0.487),rgba(0, 0, 0, 0.551)), url(../images/background_center.png);
+    background-size: cover;
 }
 .all_pages{
     position: absolute;
@@ -272,15 +273,19 @@ img.h_logo{
 .pt_10{
     padding-top: 10px;
 }
+.pt_30{
+    padding-top: 30px;
+}
 .pb_10{
     padding-bottom: 10px;
 }
 .pt_20{
     padding-top: 20px;
 }
-.pb_20{
+.pb_30{
     padding-bottom: 30px;
 }
+
 .pl_10{
     padding-left: 10px;
 }
@@ -353,6 +358,7 @@ img.h_logo{
     transition: all 0.6s;
     top:0%;
     height: 100%;
+    
     padding:0 20px; 
     z-index: -1;
 }
@@ -625,7 +631,7 @@ img.h_logo{
     padding: 50px 0;
     transition: all 1s;
 }
-.login_submit button{
+.login_submit button,.signup_submit button{
     width: 300px;
     background-color: #fa4b622e;
     padding:5px 0;
@@ -633,6 +639,9 @@ img.h_logo{
     color: rgba(255, 255, 255, 0.321);
     border: none;
     border-radius: 5px;
+}
+.signup_submit{
+    background-color: #fa4b622e;
 }
 .dark_mode img{
     width: 30px;
@@ -648,6 +657,10 @@ img.h_logo{
 .previous img{
     width: 25px;
     height: 25px;
+}
+/* ____________________________________Sign up page_________________________________________ */
+.signup_form_section{
+    /* height: 80%; */
 }
 /* ____________________________________new page_________________________________________ */
 .dash_wrapper{
@@ -1007,6 +1020,10 @@ width: 45%;
   }
 }
 @media(max-width:578px){
+    .portfolio_home_page{
+    background-image:linear-gradient(to bottom,rgba(0, 0, 0, 0.487),rgba(0, 0, 0, 0.551)), url(../images/frank_newmobile.png);
+    
+    }
    .h_intro{
     
     padding: 0 10px;

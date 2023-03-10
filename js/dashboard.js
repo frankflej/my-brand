@@ -76,18 +76,18 @@ const display_blogs=()=>{
                             </div>
                             <div>
                                 <p>
-                                ${info} ...<span ><a href="single_blog.html?p_id=${index}" class="myorange"> Read more>></a></span>
+                                ${info} ...<span ><a href="single_blog.html?p_id=${b._id}" class="myorange"> Read more>></a></span>
                                 </p>
                             </div>
                 
                             <div class="read_more read_more_dash myflex_end myorange pt_20">
                         
-                                <div class="mydelete" data-num=${index} onclick='deleting()'>
+                                <div class="mydelete" data-num=${b._id} onclick='deleting()'>
                                   <p>Delete</p>
                                 </div>
                                 
             
-                                <div class="myupdate" data-num=${index} onclick='updating()'>
+                                <div class="myupdate" data-num=${b._id} onclick='updating()'>
                                   <p>Update</p>
                                 </div>
                             </div>
@@ -136,6 +136,7 @@ const display_queries=()=>{
 
 display_queries()
 
+// Getting post to be updated
 const updating=()=>{
     const update=document.getElementsByClassName('myupdate');
     const updateBtn=Array.from(update);
@@ -144,38 +145,46 @@ const updating=()=>{
             
                 mypages('dashboard_update');
                 let myid=u.dataset.num
-                myall_post=JSON.parse(localStorage.getItem('all_post'));
-                for(let i=0;i<=myall_post.length;i++){
-                    if(myid==i){
-                       
-                        document.getElementById('post_title_upd').value=`${myall_post[i].p_title}`
-                        document.getElementById('post_details_upd').value=`${myall_post[i].p_details}`
-                        document.getElementById('myimg_post_upd').src=`${myall_post[i].p_img}`
-                    }
-                }
-                const update_btn=document.getElementsByClassName('upd');
-                const upd_btn=Array.from(update_btn);
-                upd_btn.forEach((n)=>{
-                   n.addEventListener('click',function(){
-                    if(n.id == 'cancel_upd'){
-                        display_blogs();
-                    }
-                    else{
-                        myall_post.splice(myid,1)
-                        let myobj={};
-                        myobj.p_title=document.getElementById('post_title_upd').value;
-                        myobj.p_details=document.getElementById('post_details_upd').value;
-                        myobj.p_file=document.getElementById('img_input_upd').value;
-                        myobj.p_img=document.getElementById('myimg_post_upd').src;
-                        myall_post.push(myobj);
-                        localStorage.setItem('all_post',JSON.stringify(myall_post))
-                        display_blogs();
-                    }
-                   })
+                fetch(`http://localhost:2100/myapi/blog/${myid}`)
+                .then((response)=>{
+                    return response.json()
+                })
+                .then((data)=>{
+                    info=data.data
+                    document.getElementById('post_title_upd').value=info.title;
+                    document.getElementById('post_details_upd').value=info.content;
+                    document.getElementById('myimg_post_upd').src=info.image;
+                    localStorage.setItem('id_upd',info._id)
+                    return info._id
                 })
         })
 })
 }
+
+// Saving the updated post
+document.getElementById('save_upd').addEventListener('click',function(e){
+    e.preventDefault()
+    const id=localStorage.getItem('id_upd')
+
+    const title=document.getElementById('post_title_upd').value
+    const content=document.getElementById('post_details_upd').value
+    const image=document.getElementById('myimg_post_upd').src
+    const data={title,content,image}
+    const cookie=document.cookie.split('=')[1]
+    fetch(`http://localhost:2100/myapi/blog/${id}`,{
+        method:'PUT',
+        headers:{
+            'Content-Type':'application/json',
+            'credentials':`${cookie}`
+        },
+        body:JSON.stringify(data)
+    }).then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        console.log(data)
+    })
+    display_blogs()
+})
 const deleting=()=>{
     const deletes=document.getElementsByClassName('mydelete');
     const deleteBtn=Array.from(deletes);

@@ -2,22 +2,28 @@ window.addEventListener('load',function(){
     let mylink=this.window.location.href;
     let url=new URL(mylink);
     let myid=url.searchParams.get('p_id')
-    let all_blogs=JSON.parse(localStorage.getItem('all_post'))
-    console.log(all_blogs)
-    this.document.getElementById('single_blog').innerHTML=`
+    console.log(myid)
+    let info=[]
+    fetch(`http://localhost:2100/myapi/blog/${myid}`)
+    .then((response)=>{
+        return response.json()
+    })
+    .then(async (data)=>{
+        info=await data.data
+        this.document.getElementById('single_blog').innerHTML=`
             <div class="single_img myflex_center pt_20 pb_10">
                         <div class="pt_10">
-                            <img src="${all_blogs[myid].p_img}" alt="">
+                            <img src="${info.image}" alt="">
                         </div>
                     </div>
 
                     <div class="blog_news">
                         <div class="sub_title">
-                            <p>${all_blogs[myid].p_title}</p>
+                            <p>${info.title}</p>
                         </div>
                         <div>
                             <p>
-                            ${all_blogs[myid].p_details}
+                            ${info.content}
                             </p>
                         </div>
                         <div class="like_section myflex pt_20">
@@ -53,4 +59,6 @@ window.addEventListener('load',function(){
                         </div>
                     </div>
         `
+    })
+    
 })

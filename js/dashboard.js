@@ -32,6 +32,8 @@ document.getElementById('save_post').addEventListener('click',function(e){
         return response.json()
     }).then((data)=>{
         console.log(data)
+        mypages('all_dashboard_post')
+        
     })
     .catch((error)=>{
         console.log(error)
@@ -49,6 +51,7 @@ document.getElementById('save_post').addEventListener('click',function(e){
 
 // Getting all blogs
 const display_blogs=()=>{
+    
     document.getElementById('all_blogs').innerHTML=''
     let blogs= [];
 
@@ -59,11 +62,12 @@ const display_blogs=()=>{
         blogs=data.data
         console.log(blogs);
         if(blogs != ''){
+            
                     blogs.forEach((b,index)=>{
                         let myinfo=(b.title).split(' ')
                         let info=[]
                         for(let i=0 ;i<=myinfo.length;i++){
-                            if(i<35){
+                            if(i<40){
                                 info.push(myinfo[i])
                             }
                         }
@@ -115,27 +119,25 @@ display_blogs()
 const display_queries=()=>{
     document.getElementById('myqueries').innerHTML=''
     let queries= [];
-    if(localStorage.getItem('mycmnts')){
-        queries=JSON.parse(localStorage.getItem('mycmnts'))
-        if(queries != ''){
-            queries.forEach((b)=>{
-                document.getElementById('myqueries').innerHTML+=`
-                <tr>
-                <td>${b.the_client_name}</td>
-                <td>${b.the_client_email}</</td>
-                <td>${b.the_client_msg}</</td>
-            </tr>
-                `
-            })
-
-        }else{
-        document.getElementById('myqueries').innerHTML=`
-        <div class='noitem'><h1>No queries</h1></div>
+   fetch('http://localhost:2100/myapi/query')
+   .then((response)=>{
+    return response.json()
+   })
+   .then((data)=>{
+    queries=data.data
+    queries.forEach((b)=>{
+        document.getElementById('myqueries').innerHTML+=`
+        <tr>
+        <td>${b.clientname}</td>
+        <td>${b.clientemail}</</td>
+        <td>${b.clientmessage}</</td>
+    </tr>
         `
-    }
+    })
+   })
+      
 }
    
-}
 
 display_queries()
 
@@ -154,6 +156,7 @@ const updating=()=>{
                 })
                 .then((data)=>{
                     info=data.data
+                    console.log(info)
                     document.getElementById('post_title_upd').value=info.title;
                     document.getElementById('post_details_upd').value=info.content;
                     document.getElementById('myimg_post_upd').src=info.image;
@@ -177,6 +180,7 @@ document.getElementById('save_upd').addEventListener('click',function(e){
     const image=document.getElementById('myimg_post_upd').src
     const data={title,content,image}
     const cookie=document.cookie.split('=')[1]
+    console.log(id)
     fetch(`http://localhost:2100/myapi/blog/${id}`,{
         method:'PUT',
         headers:{
@@ -195,44 +199,47 @@ document.getElementById('save_upd').addEventListener('click',function(e){
     })
     
 })
+
+// Deleting a post
 const deleting=()=>{
     const deletes=document.getElementsByClassName('mydelete');
     const deleteBtn=Array.from(deletes);
-    let token= document.cookie.split('=')[1]
+    
     
     deleteBtn.forEach((d)=>{
         d.addEventListener('click',function(){
-            let myid=d.dataset.num
-            fetch(`http://localhost:2100/myapi/blog/${myid}`,{
-                method:'DELETE',
-                headers:{
-                    'Content-Type':'application/json',
-                    "credentials":`${token}`
-                }
-            })
-            .then((response)=>{
-                return response.json()
-            })
-            .then((data)=>{
-                console.log(data)
-                display_blogs()
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
-            // if(n.id == 'delete_blog'){
-            //     myall_post.splice(myid,1)
-            //     localStorage.setItem('all_post',JSON.stringify(myall_post))
-            //     document.getElementById('confirmation').style.display='none';
-            //     display_blogs(); 
-            // }
-            // else{
-            //     document.getElementById('confirmation').style.display='none';
-            // }
-            // location.reload();
-        })
+            let myid=d.dataset.num       
+            document.getElementById('confirmation').style.display='block'
+            document.getElementById('delete_blog').addEventListener('click',function(){
+             let token= document.cookie.split('=')[1]
+                    console.log(myid)
+                    fetch(`http://localhost:2100/myapi/blog/${myid}`,{
+                        method:'DELETE',
+                        headers:{
+                            'Content-Type':'application/json',
+                            "credentials":`${token}`
+                        }
+                    })
+                    .then((response)=>{
+                        return response.json()
+                    })
+                    .then((data)=>{
+                        console.log(data)
+                        document.getElementById('confirmation').style.display='none'
+                        display_blogs()
+                    })
+                    .catch((error)=>{
+                        console.log(error)
+                    })
     })
+    document.getElementById('cancel_del').addEventListener('click',function(){
+        document.getElementById('confirmation').style.display='none'
+    })
+        })
+  
+})
 }
+
 const mypages=(x)=>{
     
     let clicked=document.getElementById(x)
@@ -240,10 +247,15 @@ const mypages=(x)=>{
     all_pages.forEach((n)=>{
     if(clicked.id == n){
         document.getElementById(`${clicked.id}`).style.display='block'
+        document.getElementById('dashboard_title_heading').innerText=`${clicked.dataset.name}`
+        if(clicked.id=='all_dashboard_post'){
+            location.reload()
+        }
         
     }else{
         document.getElementById(`${n}`).style.display='none'
     }
+    
 })
 
 

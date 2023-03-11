@@ -1,3 +1,3 @@
-// if(!localStorage.getItem('online')){
-//     location.href='login.html'
-// }
+if(!localStorage.getItem('on')){
+    location.href='login.html'
+}

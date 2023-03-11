@@ -524,9 +524,6 @@ img.h_logo{
     margin: 20px 0;
 }
 .mymenu_bar{
-    position: fixed;
-    z-index: 990;
-    width: 100%;
     transition: all .3s;
     display: none;
 }
@@ -691,13 +688,20 @@ img.h_logo{
     position: relative;
     width: 100%;
 }
-.post_heading,.query_heading {
+.dashboard_heading {
     border-bottom: 1px solid rgba(0, 0, 0, 0.16);
     width: 80%;
     background-color: white;
     position: fixed;
     padding: 5px 15px;
     box-shadow: 16px 0px 13px 0px #0000002e;
+}
+.post_heading{
+    width: 100%;
+    position: fixed;
+    background-color: white;
+    z-index: 999;
+    padding-left: 25px;
 }
 .all_blogs,.all_queries{
     padding-top: 60px;
@@ -879,6 +883,20 @@ width: 45%;
     width: 400px;
     height: 400px;
     object-fit: cover;
+}
+.user_cmnt{
+    width: 100%;
+}
+.user_cmnt textarea{
+    width: 70%;
+    padding:2px 5px;
+    border:1px solid rgba(0, 0, 0, 0.245) ;
+}
+.cmnt_btns{
+    width: 10%;
+    border-radius: 10px;
+    text-align: center;
+    background-color:#fa4b63 ;
 }
 @media (max-width:912px){
     .home_page{

@@ -123,30 +123,37 @@ window.addEventListener("scroll",function(){
 localStorage.removeItem('online')
 const display_blogs=()=>{
     document.getElementById('home_all_blogs').innerHTML=''
-    const blogs=JSON.parse(localStorage.getItem('all_post')) || [];
-    if(blogs != ''){
+
+    fetch('http://localhost:2100/myapi/blog')
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data)=>{
+        const blogs=data.data
+     if(blogs != ''){
         blogs.forEach((b,index) => {
-            let myinfo=(b.p_details).split(' ')
+            let myinfo=(b.content).split(' ')
                 let info=[]
                 for(let i=0 ;i<=myinfo.length;i++){
                     if(i<40){
                         info.push(myinfo[i])
                     }
                 }
+
                 info=info.join(' ')
-           document.getElementById('home_all_blogs').innerHTML+=`
+                document.getElementById('home_all_blogs').innerHTML+=`
            <div class="blog_details ">
                         <div class="blog_img">
-                            <img src="${b.p_img}" alt="">
+                            <img src="${b.image}" alt="">
                         </div>
     
                         <div class="blog_news">
                             <div class="sub_title">
-                                <p>${b.p_title}</p>
+                                <p>${b.title}</p>
                             </div>
                             <div>
                                 <p>
-                                ${info}...<span ><a href="single_blog.html?p_id=${index}" class="myorange"> Read more>></a></span>
+                                ${info}...<span ><a href="single_blog.html?p_id=${b._id}" class="myorange"> Read more>></a></span>
                                 </p>
         
                             </div>
@@ -159,7 +166,7 @@ const display_blogs=()=>{
                                 <div class="myflex mylikes">
                                     
                                    <div class="like_btn_section myflex">
-                                        <div class="red_heart ">
+                                        <div class="red_heart">
                                         <img src="images/liked.png" alt="">
                                         </div>
                                         <div class="white_heart">
@@ -181,28 +188,54 @@ const display_blogs=()=>{
                                 </div>
     
                             </div>
+                            <div class='user_cmnt'>
+                            <div>
+                            <textarea name="" class='' cols="45" rows="1" placeholder="Leave a comment" ></textarea>
+                            </div>
+                            <div class="cmnt_btns mywhite" onclick='commenting()' data-pid=${b._id}>
+                            <p>Send</p>
+                            </div>
+                            </div>
                             
                         </div>
                     </div>
            `
            
+            })
+        }
         });
-    }
+    
 }
 display_blogs();
 const queries=()=>{
-    const the_client_email=document.getElementById('client_email').value;
-    const the_client_name=document.getElementById('client_name').value;
-    const the_client_msg=document.getElementById('client_msg').value;
-    const myobj={};
-    myobj.the_client_email=the_client_email;
-    myobj.the_client_name=the_client_name;
-    myobj.the_client_msg=the_client_msg;
-    cmnts=[];
-    if(localStorage.getItem('mycmnts')){
-        cmnts=JSON.parse(localStorage.getItem('mycmnts'))
-    }
-    cmnts.push(myobj);
-    localStorage.setItem('mycmnts',JSON.stringify(cmnts));
+    const clientname=document.getElementById('client_name').value;
+    const clientemail=document.getElementById('client_email').value;
+    const clientmessage=document.getElementById('client_msg').value;
+    const myobj={clientname,clientemail,clientmessage};
+    fetch('http://localhost:2100/myapi/query',{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(myobj)
+    })
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data)=>{
+        console.log(data)
+    })
+    
 }
  
+const commenting=()=>{
+   const on=localStorage.getItem('on')
+   if(on==null){
+    alert("First log in")
+    location.href='./login.html?action=true'
+   }else{
+    
+   }
+    
+   
+}

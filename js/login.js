@@ -1,7 +1,8 @@
 const email_name="frankflej@gmail.com";
 const password_pass='frankfrank';
-
+localStorage.removeItem('on')
 document.getElementById('mylogin').addEventListener('click',function(e){
+    
     e.preventDefault()
     const myemail=document.getElementById('login_email').value
     const mypassword=document.getElementById('mypassword').value
@@ -33,12 +34,30 @@ document.getElementById('mylogin').addEventListener('click',function(e){
         }).then((data)=>{
             const token=data.token
             if(token){
+                localStorage.setItem('on',1)
                 document.cookie=`token=${token}; Path=/;`
-                location.href="./dashboard.html"
+                let mylink=location.href;
+                 let url=new URL(mylink);
+                 let action=url.searchParams.get('action')
+                 console.log(action)
+                 if(action=='true'){
+                    location.href='./index.html#myblog_page'
+                  }
+                else{
+                    
+                    location.href='./dashboard.html'
+                }
             }
             else{
-                return console.log("Wrong credentials")
+                document.getElementById('msg').style.color='#fa4b63'
+                document.getElementById('msg').innerHTML=`    
+                <p>Wrong credentials!</p>
+                `
             }
+        }).catch((error)=>{
+            document.getElementById('msg').innerHTML=`    
+                <p>${error}</p>
+                `
         })
     }
 })

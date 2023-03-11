@@ -1,8 +1,8 @@
 const email_name="frankflej@gmail.com";
 const password_pass='frankfrank';
 localStorage.removeItem('on')
-document.getElementById('mylogin').addEventListener('click',function(e){
-    
+
+document.getElementById('mylogin').addEventListener('click',function(e){ 
     e.preventDefault()
     const myemail=document.getElementById('login_email').value
     const mypassword=document.getElementById('mypassword').value
@@ -32,7 +32,12 @@ document.getElementById('mylogin').addEventListener('click',function(e){
         }).then((response)=>{
             return response.json()
         }).then((data)=>{
+           console.log(data) 
             const token=data.token
+            const id=data.data.id
+             localStorage.setItem('id',id)
+            console.log(token)
+            
             if(token){
                 localStorage.setItem('on',1)
                 document.cookie=`token=${token}; Path=/;`
@@ -41,14 +46,17 @@ document.getElementById('mylogin').addEventListener('click',function(e){
                  let action=url.searchParams.get('action')
                  console.log(action)
                  if(action=='true'){
-                    location.href='./index.html#myblog_page'
+                    const email= data.data.email
+                    localStorage.setItem('email',email)
+                    const p_id=localStorage.getItem('post_id')
+                    location.href=`./index.html?c_id=${id}&p_id=${p_id}`
                   }
                 else{
-                    
                     location.href='./dashboard.html'
                 }
             }
             else{
+                console.log("not theere")
                 document.getElementById('msg').style.color='#fa4b63'
                 document.getElementById('msg').innerHTML=`    
                 <p>Wrong credentials!</p>

@@ -123,7 +123,6 @@ window.addEventListener("scroll",function(){
 localStorage.removeItem('online')
 const display_blogs=()=>{
     document.getElementById('home_all_blogs').innerHTML=''
-
     fetch('http://localhost:2100/myapi/blog')
     .then((response)=>{
         return response.json()
@@ -183,17 +182,17 @@ const display_blogs=()=>{
                                         <img src="images/cmnt.png" alt="">
                                     </div>
                                     <div>
-                                        <p>233</p>
+                                        <p id='cmnt_count'></p>
                                     </div>
                                 </div>
     
                             </div>
                             <div class='user_cmnt'>
                             <div>
-                            <textarea name="" class='' cols="45" rows="1" placeholder="Leave a comment" ></textarea>
+                            <textarea name="" class='' cols="45" rows="1" placeholder="Leave a comment" id='cmnt_msg'></textarea>
                             </div>
-                            <div class="cmnt_btns mywhite" onclick='commenting()' data-pid=${b._id}>
-                            <p>Send</p>
+                            <div class="cmnt_btns mywhite" onclick='btn(event)'>
+                            <p data-pid=${b._id}>Send</p>
                             </div>
                             </div>
                             
@@ -228,14 +227,31 @@ const queries=()=>{
     
 }
  
-const commenting=()=>{
-   const on=localStorage.getItem('on')
+function btn(e){
+    const post_id=e.target.dataset.pid
+    localStorage.setItem('post_id',post_id)
+    const on=localStorage.getItem('on')
    if(on==null){
     alert("First log in")
     location.href='./login.html?action=true'
    }else{
+    const message=document.getElementById('cmnt_msg').value
+    const id=localStorage.getItem('id')
+    const p_id=localStorage.getItem('post_id')
+    const data={p_id,id,message}
     
+    fetch(`http://localhost:2100/myapi/comment/${id}&${p_id}`,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json'
+        },
+        body:JSON.stringify(data)
+    }).then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        console.log(data)
+    }).catch((error)=>{
+        console.log(error)
+    })
    }
-    
-   
 }

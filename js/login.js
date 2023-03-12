@@ -49,7 +49,7 @@ document.getElementById('mylogin').addEventListener('click',function(e){
                     const email= data.data.email
                     localStorage.setItem('email',email)
                     const p_id=localStorage.getItem('post_id')
-                    location.href=`./index.html?c_id=${id}&p_id=${p_id}`
+                    location.href=`./index.html?c_id=${id}`
                   }
                 else{
                     location.href='./dashboard.html'

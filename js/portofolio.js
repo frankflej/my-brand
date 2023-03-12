@@ -162,34 +162,35 @@ const display_blogs=()=>{
                                     <p>By: Admin</p>
                                 </div>
     
-                                <div class="myflex mylikes">
+                                <div class="myflex mylikes" onclick='liking(event)'>
                                     
-                                   <div class="like_btn_section myflex">
-                                        <div class="red_heart">
+                                   <div class="like_btn_section myflex"  >
+                                         
+                                        <div class="red_heart" data-pid=${b._id}>
                                         <img src="images/liked.png" alt="">
                                         </div>
                                         <div class="white_heart">
-                                        <img src="images/unliked.png" alt="">
+                                        <img src="images/unliked.png" alt="" data-pid=${b._id}>
                                         </div>
                                    </div>
                                    <div>
-                                    <p>10</p>
-                                </div>
+                                    <p>${b.likes.name.length}</p>
+                                   </div>
                                 </div>
     
-                                <div class="cmnt_btn myflex">
+                                <div class="cmnt_btn myflex" >
                                     <div class="cmnt_img">
                                         <img src="images/cmnt.png" alt="">
                                     </div>
                                     <div>
-                                        <p id='cmnt_count'></p>
+                                        <p id='cmnt_count'>${b.comment.length}</p>
                                     </div>
                                 </div>
     
                             </div>
                             <div class='user_cmnt'>
                             <div>
-                            <textarea name="" class='' cols="45" rows="1" placeholder="Leave a comment" id='cmnt_msg'></textarea>
+                            <textarea name="" class='' cols="45" rows="1" placeholder="Leave a comment" id=${b._id}></textarea>
                             </div>
                             <div class="cmnt_btns mywhite" onclick='btn(event)'>
                             <p data-pid=${b._id}>Send</p>
@@ -235,23 +236,55 @@ function btn(e){
     alert("First log in")
     location.href='./login.html?action=true'
    }else{
-    const message=document.getElementById('cmnt_msg').value
-    const id=localStorage.getItem('id')
-    const p_id=localStorage.getItem('post_id')
-    const data={p_id,id,message}
-    
-    fetch(`http://localhost:2100/myapi/comment/${id}&${p_id}`,{
+       const id=localStorage.getItem('id')
+       const p_id=localStorage.getItem('post_id')
+       const message=document.getElementById(`${p_id}`).value
+       const data={message}
+       document.getElementById(`${p_id}`).value=''
+       console.log(data)
+    const cookie=document.cookie.split('=')[1];
+    console.log(p_id)
+    fetch(`http://localhost:2100/myapi/blog/${p_id}/comments`,{
         method:'POST',
         headers:{
-            'Content-Type':'application/json'
+            'Content-Type':'application/json',
+            'credentials':`${cookie}`
         },
         body:JSON.stringify(data)
     }).then((response)=>{
         return response.json()
     }).then((data)=>{
         console.log(data)
+        location.reload()
     }).catch((error)=>{
         console.log(error)
     })
    }
+}
+
+function liking(e){
+    const post_id=e.target.dataset.pid
+    localStorage.setItem('post_id',post_id)
+    const on=localStorage.getItem('on')
+   if(on==null){
+    alert("First log in")
+    location.href='./login.html?action=true'
+   }else{
+    const id=localStorage.getItem('id')
+    const p_id=localStorage.getItem('post_id')
+    console.log(p_id)
+    const cookie=document.cookie.split('=')[1];
+    fetch(`http://localhost:2100/myapi/blog/${p_id}/like`,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'credentials':`${cookie}`
+        }
+    }).then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        console.log(data)
+    })
+   }
+
 }

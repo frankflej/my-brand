@@ -43,7 +43,7 @@ window.addEventListener('load',function(){
                                     </div>
                                </div>
                                <div>
-                                <p>10</p>
+                                <p>${info.likes.name.length}</p>
                             </div>
                             </div>
 
@@ -52,7 +52,7 @@ window.addEventListener('load',function(){
                                     <img src="images/cmnt.png" alt="">
                                 </div>
                                 <div>
-                                    <p>233</p>
+                                    <p>${info.comment.length}</p>
                                 </div>
                             </div>
 

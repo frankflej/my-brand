@@ -64,7 +64,7 @@ const display_blogs=()=>{
         if(blogs != ''){
             
                     blogs.forEach((b,index)=>{
-                        let myinfo=(b.title).split(' ')
+                        let myinfo=(b.content).split(' ')
                         let info=[]
                         for(let i=0 ;i<=myinfo.length;i++){
                             if(i<40){
@@ -143,31 +143,37 @@ display_queries()
 
 // Getting post to be updated
 const updating=()=>{
-    const update=document.getElementsByClassName('myupdate');
-    const updateBtn=Array.from(update);
-    updateBtn.forEach((u)=>{
-        u.addEventListener('click',function(){
+    const mycookie=document.cookie.split('=')[1]
+   
+        const update=document.getElementsByClassName('myupdate');
+        const updateBtn=Array.from(update);
+        updateBtn.forEach((u)=>{
+            u.addEventListener('click',function(){
             
-                mypages('dashboard_update');
-                let myid=u.dataset.num
-                fetch(`http://localhost:2100/myapi/blog/${myid}`)
-                .then((response)=>{
-                    return response.json()
-                })
-                .then((data)=>{
-                    info=data.data
-                    console.log(info)
-                    document.getElementById('post_title_upd').value=info.title;
-                    document.getElementById('post_details_upd').value=info.content;
-                    document.getElementById('myimg_post_upd').src=info.image;
-                    localStorage.setItem('id_upd',info._id)
-                    return info._id
-                })
-                .catch((error)=>{
-                    console.log(error)
-                })
-        })
-})
+                    mypages('dashboard_update');
+                    let myid=u.dataset.num
+                    fetch(`http://localhost:2100/myapi/blog/${myid}`)
+                    .then((response)=>{
+                        return response.json()
+                    })
+                    .then((data)=>{
+                        info=data.data
+                        console.log(info)
+                        document.getElementById('post_title_upd').value=info.title;
+                        document.getElementById('post_details_upd').value=info.content;
+                        document.getElementById('myimg_post_upd').src=info.image;
+                        localStorage.setItem('id_upd',info._id)
+                        return info._id
+                    })
+                    .catch((error)=>{
+                        console.log(error)
+                    })
+                
+              
+            })
+    })
+       
+  
 }
 
 // Saving the updated post
@@ -208,7 +214,8 @@ const deleting=()=>{
     
     deleteBtn.forEach((d)=>{
         d.addEventListener('click',function(){
-            let myid=d.dataset.num       
+            // if(localStorage.getItem('isAdmin')==true){
+                let myid=d.dataset.num       
             document.getElementById('confirmation').style.display='block'
             document.getElementById('delete_blog').addEventListener('click',function(){
              let token= document.cookie.split('=')[1]
@@ -235,6 +242,11 @@ const deleting=()=>{
     document.getElementById('cancel_del').addEventListener('click',function(){
         document.getElementById('confirmation').style.display='none'
     })
+            // }
+            // else{
+            //     alert('Not allowed')
+            //     return
+            // }
         })
   
 })

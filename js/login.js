@@ -1,6 +1,10 @@
-const email_name="frankflej@gmail.com";
-const password_pass='frankfrank';
-localStorage.removeItem('on')
+let mycookie=document.cookie.split('=')[1]||''
+if(mycookie){
+    localStorage.removeItem('isAdmin')
+    document.cookie="token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+}
+
+
 
 document.getElementById('mylogin').addEventListener('click',function(e){ 
     e.preventDefault()
@@ -35,11 +39,12 @@ document.getElementById('mylogin').addEventListener('click',function(e){
            console.log(data) 
             const token=data.token
             const id=data.data.id
+            localStorage.setItem('isAdmin',data.data.isAdmin)
              localStorage.setItem('id',id)
-            console.log(token)
-            
-            if(token){
-                localStorage.setItem('on',1)
+             
+             if(token){
+                console.log(token)
+                
                 document.cookie=`token=${token}; Path=/;`
                 let mylink=location.href;
                  let url=new URL(mylink);

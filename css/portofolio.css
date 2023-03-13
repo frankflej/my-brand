@@ -445,9 +445,14 @@ img.h_logo{
 }
 .like_btn_section{
     position:relative;
-    padding: 4px 2px 0 4px;
+    padding: 0px 2px 0 4px;
 }
-.red_heart img,.white_heart img{
+.like_btn_section svg{
+    height: 20px;
+    width: 20px;
+}
+
+img.red_heart {
     width: 15px;
     height: 15px;
 }
@@ -458,10 +463,7 @@ img.h_logo{
     width: 20px;
     height: 20px;
 }
-.red_heart{
-    position: absolute;
-    visibility: hidden;
-}
+
 .read_more{
     font-size: 15px;
 }
@@ -638,7 +640,11 @@ img.h_logo{
     border-radius: 5px;
 }
 .signup_submit{
-    background-color: #fa4b622e;
+    background-color: #fa4b63;
+    
+}
+.signup_submit button{
+    color:white
 }
 .dark_mode img{
     width: 30px;
@@ -887,16 +893,32 @@ width: 45%;
 .user_cmnt{
     width: 100%;
 }
-.user_cmnt textarea{
+.user_cmnt textarea,.single_blog_commenting textarea{
     width: 70%;
     padding:2px 5px;
-    border:1px solid rgba(0, 0, 0, 0.245) ;
+    border:1px solid rgba(0, 0, 0, 0.085) ;
 }
 .cmnt_btns{
     width: 10%;
     border-radius: 10px;
     text-align: center;
     background-color:#fa4b63 ;
+}
+
+.all_comments li{
+    width: 60%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.175);
+    padding: 5px 0;
+}
+.cmnt_name{
+    font-size: 14px;
+    /* padding-bottom: 5px; */
+}
+.cmnt_message{
+    font-size: 16px;
+}
+.like_hide{
+    display: none;
 }
 @media (max-width:912px){
     .home_page{

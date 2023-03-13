@@ -24,8 +24,8 @@
                     <div class="dash_nav pt_20">
                         <ul>
                             <a href="index.html"><li>Home</li></a>
-                            <li class="dash_sec" onclick="mypages('all_dashboard_post')" id="mypost">Post</li>
-                            <li class="dash_sec" onclick="mypages('all_dashboard_query')" id="myquery">Query</li>
+                            <li class="dash_sec" onclick="mypages('all_dashboard_post')"  id="mypost">Post</li>
+                            <li class="dash_sec" onclick="mypages('all_dashboard_query')"id="myquery">Query</li>
                             <li class="dash_sec" onclick="mypages('dashboard_new_post')" id="mynew">Add new post</li>
                             <a href="login.html"><li>Log out</li></a>
                         </ul>
@@ -33,19 +33,29 @@
                 </div>
               </div>
 
-              <div class="dash_content ">
+              <div class="dash_content">
+               
+                <div class="post_heading pt_10 myflex_between">
+                        <div class="post_right">
+                           <div>
+                            <p><b id="dashboard_title_heading">Post</b></p>
+                           </div>
+                        </div>
+                        <div class="mymenu_bar" id="mymenu_bar">
+              
+                            <div class="sub_menu myflex pt_10 pb_10">
+                                <div class="menu" onclick="unhide('dashboard_spacing')">
+                                    <div class="menu_line" id="line_1"></div>
+                                    <div class="menu_line" id="line_2"></div>
+                                    <div class="menu_line" id="line_3"></div>
+                                </div>
+                            </div>
+                             
+                        </div>   
+                </div>
+
                 <!--______________________ ALL Post _______________________-->
-               <div class="all_dashboard_post" id="all_dashboard_post" >
-                 <div class="all_post pb_20 ">
-                    <div class="post_heading pt_10 myflex_between">
-                      <div class="post_right">
-                         <div>
-                          <p><b>Post</b></p>
-                         </div>
-                      </div>
-                      
-                     </div>
-                 </div>
+               <div class="all_dashboard_post" id="all_dashboard_post" data-name='Post' >
 
                  <div class="all_blogs all_blogs_dash" id="all_blogs">
                   <!-- <div class="blog_details_dash blog_details">
@@ -113,16 +123,7 @@
                </div> 
 
                <!-- ______________________All queries__________________________________ -->
-               <div class="all_dashboard_query" id="all_dashboard_query" >
-                <div class="all_query pb_20 ">
-                    <div class="query_heading pt_10">
-                      <div class="query_right">
-                         <div>
-                          <p><b>Query</b></p>
-                         </div>
-                      </div>
-                    </div>
-
+               <div class="all_dashboard_query" id="all_dashboard_query"  data-name="Query" >
                     <div class="all_queries pt_50">
                         <div>
                             <table>
@@ -151,20 +152,12 @@
                             </table>
                         </div>
                     </div>
-                 </div>
                </div>
 
                 <!-- ______________________New post__________________________________ -->
-               <div  class="dashboard_new_post" id="dashboard_new_post">
+               <div  class="dashboard_new_post" id="dashboard_new_post" data-name="New Post" >
                    <div>
-                    <div class="query_heading pt_10">
-                        <div class="query_right">
-                           <div>
-                            <p><b>New post</b></p>
-                           </div>
-                        </div>
-                    </div>
-
+    
                     <div class="new_post_section myflex_center">
                         <div class="real_post_section">
                             <form action="">
@@ -192,15 +185,8 @@
                    </div>
                 </div>
                  <!-- ______________________Update post__________________________________ -->
-               <div  class="dashboard_update" id="dashboard_update" >
+               <div  class="dashboard_update" id="dashboard_update" data-name="Update">
                 <div>
-                 <div class="query_heading pt_10">
-                     <div class="query_right">
-                        <div>
-                         <p><b>Update post</b></p>
-                        </div>
-                     </div>
-                 </div>
 
                  <div class="new_post_section myflex_center">
                      <div class="real_post_section">
@@ -251,17 +237,7 @@
               </div>
            </div>
         
-           <div class="mymenu_bar" id="mymenu_bar">
-              
-            <div class="sub_menu myflex pt_10 pb_10">
-                <div class="menu" onclick="unhide('dashboard_spacing')">
-                    <div class="menu_line" id="line_1"></div>
-                    <div class="menu_line" id="line_2"></div>
-                    <div class="menu_line" id="line_3"></div>
-                </div>
-            </div>
-             
-           </div>   
+           
     
            <div class="mobile_nav" id="mobile_nav">
         <div>
@@ -286,7 +262,7 @@
         </div>
            </div>
 
-           <!-- Deletion msg -->
+           
          
       </div>
      

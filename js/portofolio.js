@@ -123,86 +123,269 @@ window.addEventListener("scroll",function(){
 localStorage.removeItem('online')
 const display_blogs=()=>{
     document.getElementById('home_all_blogs').innerHTML=''
-    const blogs=JSON.parse(localStorage.getItem('all_post')) || [];
-    if(blogs != ''){
+    fetch('http://localhost:2100/myapi/blog')
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data)=>{
+        const blogs=data.data
+     if(blogs != ''){
         blogs.forEach((b,index) => {
-            let myinfo=(b.p_details).split(' ')
+            let myinfo=(b.content).split(' ')
                 let info=[]
                 for(let i=0 ;i<=myinfo.length;i++){
                     if(i<40){
                         info.push(myinfo[i])
                     }
                 }
+
                 info=info.join(' ')
-           document.getElementById('home_all_blogs').innerHTML+=`
+                document.getElementById('home_all_blogs').innerHTML+=`
            <div class="blog_details ">
                         <div class="blog_img">
-                            <img src="${b.p_img}" alt="">
+                            <img src="${b.image}" alt="">
                         </div>
     
                         <div class="blog_news">
                             <div class="sub_title">
-                                <p>${b.p_title}</p>
+                                <p>${b.title}</p>
                             </div>
                             <div>
                                 <p>
-                                ${info}...<span ><a href="single_blog.html?p_id=${index}" class="myorange"> Read more>></a></span>
+                                ${info}...<span ><a href="single_blog.html?p_id=${b._id}" class="myorange"> Read more>></a></span>
                                 </p>
         
                             </div>
-                            <div class="like_section myflex pt_20">
+                            <div class="like_section myflex pt_20" id=''>
     
                                 <div>
                                     <p>By: Admin</p>
                                 </div>
     
-                                <div class="myflex mylikes">
+                                <div class="myflex mylikes" onclick='liking(event)'>
                                     
-                                   <div class="like_btn_section myflex">
-                                        <div class="red_heart ">
-                                        <img src="images/liked.png" alt="">
-                                        </div>
-                                        <div class="white_heart">
-                                        <img src="images/unliked.png" alt="">
-                                        </div>
+                                   <div class="like_btn_section myflex" data-pid=${b._id}' >
+                                   <div id='liking_${b._id}'>
+
+                                   </div>
                                    </div>
                                    <div>
-                                    <p>10</p>
-                                </div>
+                                    <p id='like_${b.Id}'>${b.likes.name.length}</p>
+                                   </div>
                                 </div>
     
-                                <div class="cmnt_btn myflex">
+                                <div class="cmnt_btn myflex" >
                                     <div class="cmnt_img">
                                         <img src="images/cmnt.png" alt="">
                                     </div>
                                     <div>
-                                        <p>233</p>
+                                        <p id='cmnt_count'>${b.comment.length}</p>
                                     </div>
                                 </div>
     
+                            </div>
+                            <div class='user_cmnt'>
+                            <div>
+                            <textarea name="" class='' cols="45" rows="1" placeholder="Leave a comment" id=${b._id}></textarea>
+                            </div>
+                            <div class="cmnt_btns mywhite" onclick='btn(event)'>
+                            <p data-pid=${b._id}>Send</p>
+                            </div>
                             </div>
                             
                         </div>
                     </div>
            `
-           
+        //    like_hide(`${b.id}`)
+            })
+        }
         });
-    }
+    
+}
+function shading_like(){
+    fetch('http://localhost:2100/myapi/blog')
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data)=>{
+        const blogs= data.data
+        blogs.forEach((blog)=>{
+            if(blog.likes.name.includes(localStorage.getItem('email'))){
+                // console.log("hereeeee")
+                document.getElementById(`liking_${blog._id}`).innerHTML=`
+                <svg  onclick='liking(event)' class='mylike_hearts'  data-like=''  data-pid=${blog._id} xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" stroke-width="1.5" stroke="transparent" class="w-6 h-6">
+                <path  stroke-linecap="round" id='like_${blog._id}'  data-pid=${blog._id}  stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                </svg>
+                `
+            }
+            else{
+                // console.log('not here')
+                document.getElementById(`liking_${blog._id}`).innerHTML=`
+                <svg onclick='liking(event)' class='mylike_hearts'  data-like=''  data-pid=${blog._id} xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path  id='unlike_${blog._id}' data-pid=${blog._id} stroke-linecap="round"   stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                </svg>
+                `
+            }
+        })
+    })
 }
 display_blogs();
+shading_like()
 const queries=()=>{
-    const the_client_email=document.getElementById('client_email').value;
-    const the_client_name=document.getElementById('client_name').value;
-    const the_client_msg=document.getElementById('client_msg').value;
-    const myobj={};
-    myobj.the_client_email=the_client_email;
-    myobj.the_client_name=the_client_name;
-    myobj.the_client_msg=the_client_msg;
-    cmnts=[];
-    if(localStorage.getItem('mycmnts')){
-        cmnts=JSON.parse(localStorage.getItem('mycmnts'))
-    }
-    cmnts.push(myobj);
-    localStorage.setItem('mycmnts',JSON.stringify(cmnts));
+    const clientname=document.getElementById('client_name').value;
+    const clientemail=document.getElementById('client_email').value;
+    const clientmessage=document.getElementById('client_msg').value;
+    const myobj={clientname,clientemail,clientmessage};
+    fetch('http://localhost:2100/myapi/query',{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json"
+        },
+        body:JSON.stringify(myobj)
+    })
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data)=>{
+        console.log(data)
+    })
+    
 }
  
+function btn(e){
+    const post_id=e.target.dataset.pid
+    localStorage.setItem('post_id',post_id)
+    const cookie=document.cookie.split('=')[1];
+    
+   if(!cookie){
+    alert("First log in")
+    location.href='./login.html?action=true'
+   }else{
+       const id=localStorage.getItem('id')
+       const p_id=localStorage.getItem('post_id')
+       const message=document.getElementById(`${p_id}`).value
+       const data={message}
+       document.getElementById(`${p_id}`).value=''
+       console.log(data)
+    console.log(p_id)
+    fetch(`http://localhost:2100/myapi/blog/${p_id}/comments`,{
+        method:'POST',
+        headers:{
+            'Content-Type':'application/json',
+            'credentials':`${cookie}`
+        },
+        body:JSON.stringify(data)
+    }).then((response)=>{
+        return response.json()
+    }).then((data)=>{
+        console.log(data)
+        location.reload()
+    }).catch((error)=>{
+        console.log(error)
+    })
+   }
+}
+
+// function liking(e){
+//     let cookies=document.cookie.split('=')[1]
+//     const pid=e.target.dataset.pid
+//     const clicked=e.target.id
+//     console.log(pid)
+// if(cookies==undefined){
+// alert('First log in')
+// location.href='./login.html?action=true'
+
+// }else{
+   
+
+// fetch(`http://localhost:2100/myapi/blog/${pid}`)
+// .then((response)=>{
+//     return response.json()
+// })
+// .then((data)=>{
+    // console.log('data')
+//     const loggedin=localStorage.getItem('email')
+//     const allusersliked=data.data.likes.name
+//     let cookies=document.cookie.split('=')[1]
+//     if(!allusersliked.includes(loggedin)){
+//         document.getElementById(clicked).setAttribute('fill','red')
+//         document.getElementById(`like_${pid}`).innerText=data.data.likes.name.length+1
+//         fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
+//             method:'POST',
+//             headers:{
+//                 'Content-Type':'application/json',
+//                 'credentials':`${cookies}`
+//             }
+//         }).then((response)=>{
+//             return response.json()
+//         }).then((data)=>{
+//             console.log(data.message)
+            
+//         })
+
+//     }
+//     else{
+//         document.getElementById(clicked).setAttribute('fill','red')
+//         document.getElementById(`like_${pid}`).innerText=data.data.likes.name.length-1
+//         fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
+//             method:'POST',
+//             headers:{
+//                 'Content-Type':'application/json',
+//                 'credentials':`${cookies}`
+//             }
+//         }).then((response)=>{
+//             return response.json()
+//         }).then((data)=>{
+//            console.log(data.message)
+            
+//         })
+//     }
+// })
+// }
+// }
+
+function liking(e){
+    let cookies=document.cookie.split('=')[1]
+        const pid=e.target.dataset.pid
+        const clicked=e.target.id
+        
+        if(cookies==undefined){
+            alert('First log in')
+            location.href='./login.html?action=true'
+        }
+        else{
+        
+        document.getElementById(clicked).addEventListener('click',function(){
+            fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
+                method:'POST',
+                headers:{
+                    'Content-Type':'application/json',
+                    'credentials':`${cookies}`
+                }
+
+            })
+            .then((response)=>{
+                return response.json()
+            })
+            .then((data)=>{
+                console.log(data.message)
+                // shading_like()
+            })
+            .catch((error)=>{
+                console.log(error)
+            })
+        })
+    }
+   
+}
+
+
+const locate_user=()=>{
+    const cookie=document.cookie.split('=')[1];
+    if(cookie){
+        document.getElementById('locate_user').href='./dashboard.html'
+    }
+    else{
+        document.getElementById('locate_user').href='./login.html'
+    }
+}

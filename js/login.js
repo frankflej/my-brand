@@ -1,7 +1,12 @@
-const email_name="frankflej@gmail.com";
-const password_pass='frankfrank';
+let mycookie=document.cookie.split('=')[1]||''
+if(mycookie){
+    localStorage.removeItem('isAdmin')
+    document.cookie="token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+}
 
-document.getElementById('mylogin').addEventListener('click',function(e){
+
+
+document.getElementById('mylogin').addEventListener('click',function(e){ 
     e.preventDefault()
     const myemail=document.getElementById('login_email').value
     const mypassword=document.getElementById('mypassword').value
@@ -31,14 +36,41 @@ document.getElementById('mylogin').addEventListener('click',function(e){
         }).then((response)=>{
             return response.json()
         }).then((data)=>{
+           console.log(data) 
             const token=data.token
-            if(token){
+            const id=data.data.id
+            localStorage.setItem('isAdmin',data.data.isAdmin)
+             localStorage.setItem('id',id)
+             
+             if(token){
+                console.log(token)
+                
                 document.cookie=`token=${token}; Path=/;`
-                location.href="./dashboard.html"
+                let mylink=location.href;
+                 let url=new URL(mylink);
+                 let action=url.searchParams.get('action')
+                 console.log(action)
+                 if(action=='true'){
+                    const email= data.data.email
+                    localStorage.setItem('email',email)
+                    const p_id=localStorage.getItem('post_id')
+                    location.href=`./index.html?c_id=${id}`
+                  }
+                else{
+                    location.href='./dashboard.html'
+                }
             }
             else{
-                return console.log("Wrong credentials")
+                console.log("not theere")
+                document.getElementById('msg').style.color='#fa4b63'
+                document.getElementById('msg').innerHTML=`    
+                <p>Wrong credentials!</p>
+                `
             }
+        }).catch((error)=>{
+            document.getElementById('msg').innerHTML=`    
+                <p>${error}</p>
+                `
         })
     }
 })

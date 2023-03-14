@@ -198,6 +198,7 @@ document.getElementById('save_upd').addEventListener('click',function(e){
         return response.json()
     }).then((data)=>{
         console.log(data)
+        mypages('all_dashboard_post')
         display_blogs()
     })
     .catch((error)=>{

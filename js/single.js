@@ -36,16 +36,17 @@ function display(){
                             <div class="myflex mylikes">
                                 
                                <div class="like_btn_section myflex">
-                               <svg   class='mylike_hearts'  data-like=''   xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" stroke-width="1.5" stroke="transparent" class="w-6 h-6">
-                               <path  stroke-linecap="round"     stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                               </svg>
+                               <div id='liking_${info._id}'>
+                                   <svg  data-like='' id='like_icon_${info._id}' onclick='liking(event)' data-pid=${info._id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="black" class="w-6 h-6 ">
+                                    <path  stroke-linecap="round" id='likes_${info._id}'  data-pid=${info._id}  stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                    </svg>
+                                   </div>
+                                   </div>
+                                   <div>
+                                    <p id='like_num_${info._id}'>${info.likes.name.length}</p>
+                                   </div>
                                </div>
-                               <div>
-                                <p>${info.likes.name.length}</p>
-                            </div>
-                            </div>
-
-                            <div class="cmnt_btn myflex">
+                               <div class="cmnt_btn myflex">
                                 <div class="cmnt_img">
                                     <img src="images/cmnt.png" alt="">
                                 </div>
@@ -53,6 +54,10 @@ function display(){
                                     <p>${info.comment.length}</p>
                                 </div>
                             </div>
+                              
+                            </div>
+
+                            
                             
                         </div>
                         <div class='single_blog_commenting '>
@@ -134,5 +139,62 @@ function mycomment(){
             `
         });
     })
+}
+function liking(e){
+    let cookies=document.cookie.split('=')[1]
+        const pid=e.target.dataset.pid
+        const clicked=e.target.id
+        let upd={}
+        // console.log(clicked)
+        console.log(pid)
+    if(cookies==undefined){
+    alert('First log in')
+    location.href='./login.html?action=true'
+    
+    }
+    else{
+        const all_blogs=JSON.parse(localStorage.getItem('all_blogs'))
+        
+        const logged_in=localStorage.getItem('email')
+        all_blogs.forEach((blog)=>{
+            // Unliking
+            if(blog._id==pid){
+                if(blog.likes.name.includes(logged_in)){
+                    const total_likes=(blog.likes.name.length)-1
+                    
+                    const likeremove=blog.likes.name.indexOf(logged_in)
+                    blog.likes.name.splice(likeremove,1)
+                    
+                    document.getElementById(`like_num_${pid}`).innerText=total_likes
+                    document.getElementById(`like_icon_${pid}`).setAttribute('fill','none')
+            
+                }
+                // Liking
+                else{
+                    const total_likes=(blog.likes.name.length)+1
+                    blog.likes.name.push(logged_in)
+                    document.getElementById(`like_num_${pid}`).innerText=total_likes
+                    document.getElementById(`like_icon_${pid}`).setAttribute('fill','red')
+                }
+            upd=blog.likes
+            }
+        })
+        localStorage.setItem('all_blogs',JSON.stringify(all_blogs))
+        fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
+            method:'PUT',
+headers:{
+'Content-Type':'application/json',
+'credentials':`${cookies}`
+},
+body:JSON.stringify(upd)
+}).then((response)=>{
+return response.json()
+}).then((data)=>{
+console.log(data)
+
+}).catch((error)=>{
+    console.log(error)
+})
+    }
 }
 mycomment()

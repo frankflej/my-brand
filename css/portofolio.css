@@ -60,6 +60,11 @@ a{
     justify-content: end;
     align-items: center;
 }
+.myflex_starts{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
 .myfont_family{
     font-family: 'Baloo Paaji 2', cursive;
 }
@@ -1027,6 +1032,7 @@ width: 45%;
     }
    .mymenu_bar{
     display: block;
+    z-index: 999;
    }
     .menu{
         border: 1px solid rgba(160, 157, 157, 0.959);

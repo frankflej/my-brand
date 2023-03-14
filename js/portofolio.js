@@ -129,6 +129,7 @@ const display_blogs=()=>{
     })
     .then((data)=>{
         const blogs=data.data
+        localStorage.setItem('all_blogs',JSON.stringify(blogs))
      if(blogs != ''){
         blogs.forEach((b,index) => {
             let myinfo=(b.content).split(' ')
@@ -162,15 +163,17 @@ const display_blogs=()=>{
                                     <p>By: Admin</p>
                                 </div>
     
-                                <div class="myflex mylikes" onclick='liking(event)'>
+                                <div class="myflex mylikes">
                                     
                                    <div class="like_btn_section myflex" data-pid=${b._id}' >
                                    <div id='liking_${b._id}'>
-
+                                   <svg  data-like='' id='like_icon_${b._id}' onclick='liking(event)' data-pid=${b._id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="black" class="w-6 h-6 ">
+                                    <path  stroke-linecap="round" id='likes_${b._id}'  data-pid=${b._id}  stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                    </svg>
                                    </div>
                                    </div>
                                    <div>
-                                    <p id='like_${b.Id}'>${b.likes.name.length}</p>
+                                    <p id='like_num_${b._id}'>${b.likes.name.length}</p>
                                    </div>
                                 </div>
     
@@ -184,7 +187,7 @@ const display_blogs=()=>{
                                 </div>
     
                             </div>
-                            <div class='user_cmnt'>
+                            <div class='user_cmnt myflex_starts'>
                             <div>
                             <textarea name="" class='' cols="45" rows="1" placeholder="Leave a comment" id=${b._id}></textarea>
                             </div>
@@ -196,7 +199,7 @@ const display_blogs=()=>{
                         </div>
                     </div>
            `
-        //    like_hide(`${b.id}`)
+       
             })
         }
         });
@@ -230,7 +233,7 @@ function shading_like(){
     })
 }
 display_blogs();
-shading_like()
+// shading_like()
 const queries=()=>{
     const clientname=document.getElementById('client_name').value;
     const clientemail=document.getElementById('client_email').value;
@@ -286,100 +289,6 @@ function btn(e){
    }
 }
 
-// function liking(e){
-//     let cookies=document.cookie.split('=')[1]
-//     const pid=e.target.dataset.pid
-//     const clicked=e.target.id
-//     console.log(pid)
-// if(cookies==undefined){
-// alert('First log in')
-// location.href='./login.html?action=true'
-
-// }else{
-   
-
-// fetch(`http://localhost:2100/myapi/blog/${pid}`)
-// .then((response)=>{
-//     return response.json()
-// })
-// .then((data)=>{
-    // console.log('data')
-//     const loggedin=localStorage.getItem('email')
-//     const allusersliked=data.data.likes.name
-//     let cookies=document.cookie.split('=')[1]
-//     if(!allusersliked.includes(loggedin)){
-//         document.getElementById(clicked).setAttribute('fill','red')
-//         document.getElementById(`like_${pid}`).innerText=data.data.likes.name.length+1
-//         fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
-//             method:'POST',
-//             headers:{
-//                 'Content-Type':'application/json',
-//                 'credentials':`${cookies}`
-//             }
-//         }).then((response)=>{
-//             return response.json()
-//         }).then((data)=>{
-//             console.log(data.message)
-            
-//         })
-
-//     }
-//     else{
-//         document.getElementById(clicked).setAttribute('fill','red')
-//         document.getElementById(`like_${pid}`).innerText=data.data.likes.name.length-1
-//         fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
-//             method:'POST',
-//             headers:{
-//                 'Content-Type':'application/json',
-//                 'credentials':`${cookies}`
-//             }
-//         }).then((response)=>{
-//             return response.json()
-//         }).then((data)=>{
-//            console.log(data.message)
-            
-//         })
-//     }
-// })
-// }
-// }
-
-function liking(e){
-    let cookies=document.cookie.split('=')[1]
-        const pid=e.target.dataset.pid
-        const clicked=e.target.id
-        
-        if(cookies==undefined){
-            alert('First log in')
-            location.href='./login.html?action=true'
-        }
-        else{
-        
-        document.getElementById(clicked).addEventListener('click',function(){
-            fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
-                method:'POST',
-                headers:{
-                    'Content-Type':'application/json',
-                    'credentials':`${cookies}`
-                }
-
-            })
-            .then((response)=>{
-                return response.json()
-            })
-            .then((data)=>{
-                console.log(data.message)
-                // shading_like()
-            })
-            .catch((error)=>{
-                console.log(error)
-            })
-        })
-    }
-   
-}
-
-
 const locate_user=()=>{
     const cookie=document.cookie.split('=')[1];
     if(cookie){
@@ -387,5 +296,63 @@ const locate_user=()=>{
     }
     else{
         document.getElementById('locate_user').href='./login.html'
+    }
+}
+
+function liking(e){
+    let cookies=document.cookie.split('=')[1]
+        const pid=e.target.dataset.pid
+        const clicked=e.target.id
+        let upd={}
+        // console.log(clicked)
+        console.log(pid)
+    if(cookies==undefined){
+    alert('First log in')
+    location.href='./login.html?action=true'
+    
+    }
+    else{
+        const all_blogs=JSON.parse(localStorage.getItem('all_blogs'))
+        
+        const logged_in=localStorage.getItem('email')
+        all_blogs.forEach((blog)=>{
+            // Unliking
+            if(blog._id==pid){
+                if(blog.likes.name.includes(logged_in)){
+                    const total_likes=(blog.likes.name.length)-1
+                    
+                    const likeremove=blog.likes.name.indexOf(logged_in)
+                    blog.likes.name.splice(likeremove,1)
+                    
+                    document.getElementById(`like_num_${pid}`).innerText=total_likes
+                    document.getElementById(`like_icon_${pid}`).setAttribute('fill','none')
+            
+                }
+                // Liking
+                else{
+                    const total_likes=(blog.likes.name.length)+1
+                    blog.likes.name.push(logged_in)
+                    document.getElementById(`like_num_${pid}`).innerText=total_likes
+                    document.getElementById(`like_icon_${pid}`).setAttribute('fill','red')
+                }
+            upd=blog.likes
+            }
+        })
+        localStorage.setItem('all_blogs',JSON.stringify(all_blogs))
+        fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
+            method:'PUT',
+headers:{
+'Content-Type':'application/json',
+'credentials':`${cookies}`
+},
+body:JSON.stringify(upd)
+}).then((response)=>{
+return response.json()
+}).then((data)=>{
+console.log(data)
+
+}).catch((error)=>{
+    console.log(error)
+})
     }
 }

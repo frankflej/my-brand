@@ -213,22 +213,24 @@ function shading_like(){
     })
     .then((data)=>{
         const blogs= data.data
-        if(localStorage.getItem('email')){
-            document.getElementById(`like_icon_${myid}`).setAttribute('fill','none')
-        }
-        else{
+      
             blogs.forEach((blog)=>{
-                if(blog.likes.name.includes(localStorage.getItem('email'))){
-                    console.log("hereeeee")
-                    
-                    document.getElementById(`like_icon_${blog._id}`).setAttribute('fill','red')
-                }
-                else{
-                    console.log('not here')
+                if(localStorage.getItem('email')){
                     document.getElementById(`like_icon_${blog._id}`).setAttribute('fill','none')
                 }
+                else{
+                    if(blog.likes.name.includes(localStorage.getItem('email'))){
+                        console.log("hereeeee")
+                        
+                        document.getElementById(`like_icon_${blog._id}`).setAttribute('fill','red')
+                    }
+                    else{
+                        console.log('not here')
+                        document.getElementById(`like_icon_${blog._id}`).setAttribute('fill','none')
+                    }
+                }
             })
-        }
+        
     })
 }
 display_blogs();

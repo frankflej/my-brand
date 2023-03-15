@@ -123,12 +123,13 @@ window.addEventListener("scroll",function(){
 localStorage.removeItem('online')
 const display_blogs=()=>{
     document.getElementById('home_all_blogs').innerHTML=''
-    fetch('http://localhost:2100/myapi/blog')
+    fetch('https://my-brand-frontend.onrender.com/myapi/blog')
     .then((response)=>{
         return response.json()
     })
     .then((data)=>{
         const blogs=data.data
+        console.log(blogs)
         localStorage.setItem('all_blogs',JSON.stringify(blogs))
      if(blogs != ''){
         blogs.forEach((b,index) => {
@@ -206,7 +207,7 @@ const display_blogs=()=>{
     
 }
 function shading_like(){
-    fetch('http://localhost:2100/myapi/blog')
+    fetch('https://my-brand-frontend.onrender.com/myapi/blog')
     .then((response)=>{
         return response.json()
     })
@@ -214,32 +215,25 @@ function shading_like(){
         const blogs= data.data
         blogs.forEach((blog)=>{
             if(blog.likes.name.includes(localStorage.getItem('email'))){
-                // console.log("hereeeee")
-                document.getElementById(`liking_${blog._id}`).innerHTML=`
-                <svg  onclick='liking(event)' class='mylike_hearts'  data-like=''  data-pid=${blog._id} xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" stroke-width="1.5" stroke="transparent" class="w-6 h-6">
-                <path  stroke-linecap="round" id='like_${blog._id}'  data-pid=${blog._id}  stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                </svg>
-                `
+                console.log("hereeeee")
+                
+                document.getElementById(`like_icon_${blog._id}`).setAttribute('fill','red')
             }
             else{
-                // console.log('not here')
-                document.getElementById(`liking_${blog._id}`).innerHTML=`
-                <svg onclick='liking(event)' class='mylike_hearts'  data-like=''  data-pid=${blog._id} xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                <path  id='unlike_${blog._id}' data-pid=${blog._id} stroke-linecap="round"   stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                </svg>
-                `
+                console.log('not here')
+                document.getElementById(`like_icon_${blog._id}`).setAttribute('fill','none')
             }
         })
     })
 }
 display_blogs();
-// shading_like()
+shading_like()
 const queries=()=>{
     const clientname=document.getElementById('client_name').value;
     const clientemail=document.getElementById('client_email').value;
     const clientmessage=document.getElementById('client_msg').value;
     const myobj={clientname,clientemail,clientmessage};
-    fetch('http://localhost:2100/myapi/query',{
+    fetch('https://my-brand-frontend.onrender.com/myapi/query',{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
@@ -271,7 +265,7 @@ function btn(e){
        document.getElementById(`${p_id}`).value=''
        console.log(data)
     console.log(p_id)
-    fetch(`http://localhost:2100/myapi/blog/${p_id}/comments`,{
+    fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${p_id}/comments`,{
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -335,12 +329,9 @@ function liking(e){
                     document.getElementById(`like_num_${pid}`).innerText=total_likes
                     document.getElementById(`like_icon_${pid}`).setAttribute('fill','red')
                 }
-            upd=blog.likes
-            }
-        })
-        localStorage.setItem('all_blogs',JSON.stringify(all_blogs))
-        fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
-            method:'PUT',
+            upd=blog.likes.name
+            fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${pid}/like`,{
+            method:'PATCH',
 headers:{
 'Content-Type':'application/json',
 'credentials':`${cookies}`
@@ -354,5 +345,9 @@ console.log(data)
 }).catch((error)=>{
     console.log(error)
 })
+            }
+        })
+        localStorage.setItem('all_blogs',JSON.stringify(all_blogs))
+        
     }
 }

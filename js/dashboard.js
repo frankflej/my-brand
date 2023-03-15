@@ -21,7 +21,7 @@ document.getElementById('save_post').addEventListener('click',function(e){
     let myimg=document.getElementById('myimg_post').src;
     let myobj={title:p_title,content:p_details,image:myimg};
     const cookie = document.cookie.split('=')[1];
-    fetch('http://localhost:2100/myapi/blog',{
+    fetch('https://my-brand-frontend.onrender.com/myapi/blog',{
         method:'POST',
         headers:{
             "Content-Type":"application/json",
@@ -49,13 +49,16 @@ document.getElementById('save_post').addEventListener('click',function(e){
     // location.reload();
 })
 
+
+
+
 // Getting all blogs
 const display_blogs=()=>{
     
     document.getElementById('all_blogs').innerHTML=''
     let blogs= [];
 
-    fetch('http://localhost:2100/myapi/blog')
+    fetch('https://my-brand-frontend.onrender.com/myapi/blog')
     .then((response)=>{
         return response.json()
     }).then((data)=>{
@@ -119,7 +122,7 @@ display_blogs()
 const display_queries=()=>{
     document.getElementById('myqueries').innerHTML=''
     let queries= [];
-   fetch('http://localhost:2100/myapi/query')
+   fetch('https://my-brand-frontend.onrender.com/myapi/query')
    .then((response)=>{
     return response.json()
    })
@@ -152,7 +155,7 @@ const updating=()=>{
             
                     mypages('dashboard_update');
                     let myid=u.dataset.num
-                    fetch(`http://localhost:2100/myapi/blog/${myid}`)
+                    fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${myid}`)
                     .then((response)=>{
                         return response.json()
                     })
@@ -187,7 +190,7 @@ document.getElementById('save_upd').addEventListener('click',function(e){
     const data={title,content,image}
     const cookie=document.cookie.split('=')[1]
     console.log(id)
-    fetch(`http://localhost:2100/myapi/blog/${id}`,{
+    fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${id}`,{
         method:'PUT',
         headers:{
             'Content-Type':'application/json',
@@ -221,7 +224,7 @@ const deleting=()=>{
             document.getElementById('delete_blog').addEventListener('click',function(){
              let token= document.cookie.split('=')[1]
                     console.log(myid)
-                    fetch(`http://localhost:2100/myapi/blog/${myid}`,{
+                    fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${myid}`,{
                         method:'DELETE',
                         headers:{
                             'Content-Type':'application/json',

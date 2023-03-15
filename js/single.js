@@ -5,12 +5,13 @@ function display(){
     let myid=url.searchParams.get('p_id')
     console.log(myid)
     let info=[]
-    fetch(`http://localhost:2100/myapi/blog/${myid}`)
+    fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${myid}`)
     .then((response)=>{
         return response.json()
     })
     .then(async (data)=>{
         info=await data.data
+        console.log(info)
         this.document.getElementById('single_blog').innerHTML=`
             <div class="single_img myflex_center pt_20 pb_10">
                         <div class="pt_10">
@@ -98,7 +99,7 @@ function btn(e){
        document.getElementById(`${p_id}`).value=''
        console.log(data)
     console.log(p_id)
-    fetch(`http://localhost:2100/myapi/blog/${p_id}/comments`,{
+    fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${p_id}/comments`,{
         method:'POST',
         headers:{
             'Content-Type':'application/json',
@@ -119,7 +120,7 @@ function mycomment(){
     let mylink=this.window.location.href;
     let url=new URL(mylink);
     let myid=url.searchParams.get('p_id')
-    fetch(`http://localhost:2100/myapi/blog/${myid}`)
+    fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${myid}`)
     .then((response)=>{
         return response.json()
     })
@@ -180,8 +181,8 @@ function liking(e){
             }
         })
         localStorage.setItem('all_blogs',JSON.stringify(all_blogs))
-        fetch(`http://localhost:2100/myapi/blog/${pid}/like`,{
-            method:'PUT',
+        fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${pid}/like`,{
+            method:'PATCH',
 headers:{
 'Content-Type':'application/json',
 'credentials':`${cookies}`
@@ -197,4 +198,31 @@ console.log(data)
 })
     }
 }
+function shading_like(){
+    let mylink=this.window.location.href;
+    let url=new URL(mylink);
+    let myid=url.searchParams.get('p_id')
+    fetch(`https://my-brand-frontend.onrender.com/myapi/blog/${myid}`)
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data)=>{
+        if(localStorage.getItem('email')){
+            document.getElementById(`like_icon_${myid}`).setAttribute('fill','none')
+        }
+        else{
+            const blogs= data.data
+            if(blogs.likes.name.includes(localStorage.getItem('email'))){
+                console.log("hereeeee")
+                document.getElementById(`like_icon_${myid}`).setAttribute('fill','none')
+            }
+            else{
+                document.getElementById(`like_icon_${myid}`).setAttribute('fill','red')
+                console.log('not here')
+            }
+        }
+       
+    })
+}
+shading_like()
 mycomment()

@@ -27,7 +27,7 @@ document.getElementById('mylogin').addEventListener('click',function(e){
         }
     }else{
         const data={email:myemail,password:mypassword}
-        fetch('http://localhost:2100/myapi/login',{
+        fetch('https://my-brand-frontend.onrender.com/myapi/login',{
             method:"POST",
             headers:{
                 "Content-Type":"application/json",

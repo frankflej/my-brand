@@ -32,7 +32,7 @@ document.getElementById('signUp').addEventListener('submit',(e)=>{
            
             const data={username:userName,email:userEmail,password:userPassword,cpassword:userConfPassword};
             // Sending data in our backend
-            fetch('http://localhost:2100/myapi/signup',{
+            fetch('https://my-brand-frontend.onrender.com/myapi/signup',{
                 method:"POST",
                 headers:{
                     "Content-Type": "application/json"

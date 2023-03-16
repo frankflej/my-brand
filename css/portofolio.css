@@ -531,19 +531,27 @@ img.red_heart {
     margin: 20px 0;
 }
 .mymenu_bar{
-    transition: all .3s;
+    transition: all .5s;
     display: none;
+    position: fixed;
+    width: 100%;
+    align-items: end;
 }
 .menu{
     padding: 7px 7px 2px 7px;
     border-radius: 2px;
     display: none ;
 }
-.menu_line{
+.menu_line,.menu_line_dash{
     width: 25px;
     height: 3px;
     margin-bottom: 5px;
-    background-color: rgb(5, 4, 4);
+}
+.menu_line{
+    background-color: white;
+}
+.menu_line_dash{
+    background-color: rgba(0, 0, 0, 0.523);
 }
 .sub_menu{
     justify-content: end;
@@ -554,7 +562,6 @@ img.red_heart {
     position: fixed;
     width: 80%;
     right: -80%;
-    /* right:0; */
     background-color:white;
     transition: all .4s;
     border: 1px solid rgba(0, 0, 0, 0.296);
@@ -1037,9 +1044,6 @@ width: 45%;
     .menu{
         border: 1px solid rgba(160, 157, 157, 0.959);
         display: block;
-    } 
-      .menu_line{
-        background-color: rgb(245, 239, 239);
     } 
     .h_website_logo{
         visibility: hidden;

@@ -15,7 +15,7 @@
 <body>
     <script src="./js/login_check.js"></script>
     <div class="wrapper">
-           <div class="dashboard_spacing" id="dashboard_spacing" onclick="hide('dashboard_spacing')">
+           <div class="dashboard_spacing" id="dashboard_spacing" onclick="unhide('dashboard_spacing')">
               <div class="dash_fixed">
                 <div class="dash_title myfont_family">
                     <div class=" pl_10"><p>DASHBOARD</p></div>
@@ -240,11 +240,11 @@
            
     
            <div class="mobile_nav" id="mobile_nav">
-        <div>
-            <div class="myflex_end">
-                <div class="mobile_close_btn" onclick="hide('dashboard_spacing')">
-                    <img src="images/cross.png" alt="">
-                </div>
+            <div>
+                 <div class="myflex_end">
+                     <div class="mobile_close_btn" onclick="hide('dashboard_spacing')">
+                        <img src="images/cross.png" alt="">
+                     </div>
             </div>
 
             <div class="">
@@ -254,12 +254,11 @@
                         <li class="dash_sec" id='mobile_post' onclick="mypages('all_dashboard_post')">Post</li>
                         <li class="dash_sec" id='mobile_query' onclick="mypages('all_dashboard_query')">Query</li>
                         <li class="dash_sec" id="mobile_new_post" onclick="mypages('dashboard_new_post')">Add new post</li>
-                        <a href="login.html"><li>Log out</li></a>
-                        
+                        <a href="login.html"><li>Log out</li></a> 
                     </ul>
                 </div>
             </div>
-        </div>
+            </div>
            </div>
 
            

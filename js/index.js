@@ -1,5 +1,6 @@
 
 const unhide=(one) => {
+    console.log('helloooo')
     document.getElementById("mobile_nav").classList.add("unhide")
     document.getElementById("mymenu_bar").style.display="none"
     document.getElementById(one).style.filter='blur(3px)'

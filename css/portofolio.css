@@ -542,11 +542,16 @@ img.red_heart {
     border-radius: 2px;
     display: none ;
 }
-.menu_line{
+.menu_line,.menu_line_dash{
     width: 25px;
     height: 3px;
     margin-bottom: 5px;
+}
+.menu_line{
     background-color: white;
+}
+.menu_line_dash{
+    background-color: rgba(0, 0, 0, 0.523);
 }
 .sub_menu{
     justify-content: end;

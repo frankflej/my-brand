@@ -15,7 +15,7 @@
 <body>
     <script src="./js/login_check.js"></script>
     <div class="wrapper">
-           <div class="dashboard_spacing" id="dashboard_spacing" onclick="unhide('dashboard_spacing')">
+           <div class="dashboard_spacing" id="dashboard_spacing">
               <div class="dash_fixed">
                 <div class="dash_title myfont_family">
                     <div class=" pl_10"><p>DASHBOARD</p></div>
@@ -45,9 +45,9 @@
               
                             <div class="sub_menu myflex pt_10 pb_10">
                                 <div class="menu" onclick="unhide('dashboard_spacing')">
-                                    <div class="menu_line" id="line_1"></div>
-                                    <div class="menu_line" id="line_2"></div>
-                                    <div class="menu_line" id="line_3"></div>
+                                    <div class="menu_line_dash" id="line_1"></div>
+                                    <div class="menu_line_dash" id="line_2"></div>
+                                    <div class="menu_line_dash" id="line_3"></div>
                                 </div>
                             </div>
                              
@@ -248,7 +248,7 @@
             </div>
 
             <div class="">
-                <div class="nav_mobile_list " onclick="hide('dashboard_spacing')">
+                <div class="nav_mobile_list " onclick="unhide('dashboard_spacing')">
                     <ul class="myfont_family" >
                         <a href="index.html"><li>Home</li></a>
                         <li class="dash_sec" id='mobile_post' onclick="mypages('all_dashboard_post')">Post</li>

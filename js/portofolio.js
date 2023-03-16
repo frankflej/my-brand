@@ -1,5 +1,91 @@
 window.addEventListener('load',function(){
 this.document.getElementById('myload').style.display='none'
+const display_blogs=()=>{
+    document.getElementById('home_all_blogs').innerHTML=''
+    fetch('https://my-brand-frontend.onrender.com/myapi/blog')
+    .then((response)=>{
+        return response.json()
+    })
+    .then((data)=>{
+        const blogs=data.data
+        console.log(blogs)
+        localStorage.setItem('all_blogs',JSON.stringify(blogs))
+     if(blogs != ''){
+        blogs.forEach((b,index) => {
+            let myinfo=(b.content).split(' ')
+                let info=[]
+                for(let i=0 ;i<=myinfo.length;i++){
+                    if(i<40){
+                        info.push(myinfo[i])
+                    }
+                }
+
+                info=info.join(' ')
+                document.getElementById('home_all_blogs').innerHTML+=`
+           <div class="blog_details ">
+                        <div class="blog_img">
+                            <img src="${b.image}" alt="">
+                        </div>
+    
+                        <div class="blog_news">
+                            <div class="sub_title">
+                                <p>${b.title}</p>
+                            </div>
+                            <div>
+                                <p>
+                                ${info}...<span ><a href="single_blog.html?p_id=${b._id}" class="myorange"> Read more>></a></span>
+                                </p>
+        
+                            </div>
+                            <div class="like_section myflex pt_20" id=''>
+    
+                                <div>
+                                    <p>By: Admin</p>
+                                </div>
+    
+                                <div class="myflex mylikes">
+                                    
+                                   <div class="like_btn_section myflex" data-pid=${b._id}' >
+                                   <div id='liking_${b._id}'>
+                                   <svg  data-like='' id='like_icon_${b._id}' onclick='liking(event)' data-pid=${b._id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="black" class="w-6 h-6 ">
+                                    <path  stroke-linecap="round" id='likes_${b._id}'  data-pid=${b._id}  stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+                                    </svg>
+                                   </div>
+                                   </div>
+                                   <div>
+                                    <p id='like_num_${b._id}'>${b.likes.name.length}</p>
+                                   </div>
+                                </div>
+    
+                                <div class="cmnt_btn myflex" >
+                                    <div class="cmnt_img">
+                                        <img src="images/cmnt.png" alt="">
+                                    </div>
+                                    <div>
+                                        <p id='cmnt_count'>${b.comment.length}</p>
+                                    </div>
+                                </div>
+    
+                            </div>
+                            <div class='user_cmnt myflex_starts'>
+                            <div>
+                            <textarea name="" class='' cols="45" rows="1" placeholder="Leave a comment" id=${b._id}></textarea>
+                            </div>
+                            <div class="cmnt_btns mywhite" onclick='btn(event)'>
+                            <p data-pid=${b._id}>Send</p>
+                            </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+           `
+       
+            })
+        }
+        });
+    
+}
+display_blogs();
 })
 document.getElementById('mysubmit').addEventListener('click',function(e){
     e.preventDefault();
@@ -121,91 +207,8 @@ window.addEventListener("scroll",function(){
     mynav_bar()
 })
 localStorage.removeItem('online')
-const display_blogs=()=>{
-    document.getElementById('home_all_blogs').innerHTML=''
-    fetch('https://my-brand-frontend.onrender.com/myapi/blog')
-    .then((response)=>{
-        return response.json()
-    })
-    .then((data)=>{
-        const blogs=data.data
-        console.log(blogs)
-        localStorage.setItem('all_blogs',JSON.stringify(blogs))
-     if(blogs != ''){
-        blogs.forEach((b,index) => {
-            let myinfo=(b.content).split(' ')
-                let info=[]
-                for(let i=0 ;i<=myinfo.length;i++){
-                    if(i<40){
-                        info.push(myinfo[i])
-                    }
-                }
 
-                info=info.join(' ')
-                document.getElementById('home_all_blogs').innerHTML+=`
-           <div class="blog_details ">
-                        <div class="blog_img">
-                            <img src="${b.image}" alt="">
-                        </div>
-    
-                        <div class="blog_news">
-                            <div class="sub_title">
-                                <p>${b.title}</p>
-                            </div>
-                            <div>
-                                <p>
-                                ${info}...<span ><a href="single_blog.html?p_id=${b._id}" class="myorange"> Read more>></a></span>
-                                </p>
-        
-                            </div>
-                            <div class="like_section myflex pt_20" id=''>
-    
-                                <div>
-                                    <p>By: Admin</p>
-                                </div>
-    
-                                <div class="myflex mylikes">
-                                    
-                                   <div class="like_btn_section myflex" data-pid=${b._id}' >
-                                   <div id='liking_${b._id}'>
-                                   <svg  data-like='' id='like_icon_${b._id}' onclick='liking(event)' data-pid=${b._id} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="black" class="w-6 h-6 ">
-                                    <path  stroke-linecap="round" id='likes_${b._id}'  data-pid=${b._id}  stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
-                                    </svg>
-                                   </div>
-                                   </div>
-                                   <div>
-                                    <p id='like_num_${b._id}'>${b.likes.name.length}</p>
-                                   </div>
-                                </div>
-    
-                                <div class="cmnt_btn myflex" >
-                                    <div class="cmnt_img">
-                                        <img src="images/cmnt.png" alt="">
-                                    </div>
-                                    <div>
-                                        <p id='cmnt_count'>${b.comment.length}</p>
-                                    </div>
-                                </div>
-    
-                            </div>
-                            <div class='user_cmnt myflex_starts'>
-                            <div>
-                            <textarea name="" class='' cols="45" rows="1" placeholder="Leave a comment" id=${b._id}></textarea>
-                            </div>
-                            <div class="cmnt_btns mywhite" onclick='btn(event)'>
-                            <p data-pid=${b._id}>Send</p>
-                            </div>
-                            </div>
-                            
-                        </div>
-                    </div>
-           `
-       
-            })
-        }
-        });
-    
-}
+
 function shading_like(){
     fetch('https://my-brand-frontend.onrender.com/myapi/blog')
     .then((response)=>{

@@ -214,10 +214,10 @@ function shading_like(){
             const blogs= data.data
             if(blogs.likes.name.includes(localStorage.getItem('email'))){
                 console.log("hereeeee")
-                document.getElementById(`like_icon_${myid}`).setAttribute('fill','none')
+                document.getElementById(`like_icon_${myid}`).setAttribute('fill','red')
             }
             else{
-                document.getElementById(`like_icon_${myid}`).setAttribute('fill','red')
+                document.getElementById(`like_icon_${myid}`).setAttribute('fill','none')
                 console.log('not here')
             }
         }

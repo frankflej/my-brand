@@ -719,6 +719,7 @@ img.red_heart {
     position: fixed;
     background-color: white;
     z-index: 999;
+    padding-left: 10px;
 }
 .all_blogs,.all_queries{
     padding-top: 60px;

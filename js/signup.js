@@ -42,7 +42,7 @@ document.getElementById('signUp').addEventListener('submit',(e)=>{
                 return response.json()
             }).then((data)=>{
                 alert(data.message)
-                location.href='/ATLP-portofolio/login.html'
+                location.href='./login.html'
             }).catch((error)=>{
                 console.log(error)
             })

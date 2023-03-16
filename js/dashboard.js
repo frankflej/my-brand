@@ -166,7 +166,7 @@ const updating=()=>{
                         document.getElementById('post_details_upd').value=info.content;
                         document.getElementById('myimg_post_upd').src=info.image;
                         localStorage.setItem('id_upd',info._id)
-                        return info._id
+                       
                     })
                     .catch((error)=>{
                         console.log(error)

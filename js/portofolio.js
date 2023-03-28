@@ -87,57 +87,7 @@ const display_blogs=()=>{
 }
 display_blogs();
 })
-document.getElementById('mysubmit').addEventListener('click',function(e){
-    e.preventDefault();
-    
-    const myemail=document.getElementById('client_email')
-    const myname=document.getElementById('client_name')
-    const mymsg=document.getElementById('client_msg')
-    const em_err=document.getElementById('email_error')
-    const msg_err=document.getElementById('msg_error')
-    const name_error=document.getElementById('name_error')
-    
-    if(myemail.value.trim()=="" || myname.value.trim()=="" || mymsg.value.trim()==""){
-        if(myname.trim()==""){
-            name_error.style.visibility='unset';
-            return
-        }
-        if(myemail.trim()==""){
-            em_err.style.visibility='unset';
-            return
-        }
-        
-        if(mymsg.trim()==""){
-            mymsg_error.style.visibility='unset';
-            return
-        }
-    }else{
-        if(myemail.dataset.err=="error" || myname.dataset.err=="error" || mymsg.dataset.err=="error"){
-            return 
-        }
-        else{
-            queries();
-            myemail.value='';
-            myname.value='';
-            mymsg.value='';
-        }
-    }
-})
-setInterval(function(){
-    const email=document.getElementById('client_email').dataset.err;
-    const name=document.getElementById('client_name').dataset.err;
-    const msg=document.getElementById('client_msg').dataset.err;
-    
-    if(email=='pass' && name=='pass' && msg=='pass'){
-        document.getElementById('mysubmit').style.color='white'
-        document.getElementById('mysubmit').style.backgroundColor='#fa4b63'
-        
-    }
-    else{
-        document.getElementById('mysubmit').style.color='rgba(255, 255, 255, 0.321)'
-        document.getElementById('mysubmit').style.backgroundColor='#fa4b622e'
-    }
-},500)
+
 window.addEventListener("scroll",function(){
     const myheight=this.scrollY
     const mywidth=screen.availWidth
@@ -258,7 +208,57 @@ const queries=()=>{
     })
     
 }
- 
+ document.getElementById('mysubmit').addEventListener('click',function(e){
+    e.preventDefault();
+    
+    const myemail=document.getElementById('client_email')
+    const myname=document.getElementById('client_name')
+    const mymsg=document.getElementById('client_msg')
+    const em_err=document.getElementById('email_error')
+    const msg_err=document.getElementById('msg_error')
+    const name_error=document.getElementById('name_error')
+    
+    if(myemail.value.trim()=="" || myname.value.trim()=="" || mymsg.value.trim()==""){
+        if(myname.trim()==""){
+            name_error.style.visibility='unset';
+            return
+        }
+        if(myemail.trim()==""){
+            em_err.style.visibility='unset';
+            return
+        }
+        
+        if(mymsg.trim()==""){
+            mymsg_error.style.visibility='unset';
+            return
+        }
+    }else{
+        if(myemail.dataset.err=="error" || myname.dataset.err=="error" || mymsg.dataset.err=="error"){
+            return 
+        }
+        else{
+            queries();
+            myemail.value='';
+            myname.value='';
+            mymsg.value='';
+        }
+    }
+})
+setInterval(function(){
+    const email=document.getElementById('client_email').dataset.err;
+    const name=document.getElementById('client_name').dataset.err;
+    const msg=document.getElementById('client_msg').dataset.err;
+    
+    if(email=='pass' && name=='pass' && msg=='pass'){
+        document.getElementById('mysubmit').style.color='white'
+        document.getElementById('mysubmit').style.backgroundColor='#fa4b63'
+        
+    }
+    else{
+        document.getElementById('mysubmit').style.color='rgba(255, 255, 255, 0.321)'
+        document.getElementById('mysubmit').style.backgroundColor='#fa4b622e'
+    }
+},500)
 function btn(e){
     const post_id=e.target.dataset.pid
     localStorage.setItem('post_id',post_id)

@@ -186,7 +186,7 @@ function shading_like(){
         
     })
 }
-display_blogs();
+
 shading_like()
 const queries=()=>{
     const clientname=document.getElementById('client_name').value;
